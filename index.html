@@ -1590,9 +1590,35 @@
 
                 <!-- Import/Export Section -->
                 <div class="card">
-                    <h3>Daten Import/Export</h3>
+                    <h3>Daten Import/Export & Speicherung</h3>
+
+                    <!-- NEW: File System Access API Section -->
+                    <div class="import-export-section" style="background: #e8f5e9; border-color: #c8e6c9;">
+                        <h4 style="color: #2e7d32;">📁 Lokale Datei-Speicherung (Empfohlen)</h4>
+                        <p class="small-text" style="margin-bottom: 12px;">
+                            Speichere deine Daten direkt in einer Datei auf deinem Computer.
+                            So gehen sie nicht verloren, wenn du Browserdaten löschst.
+                        </p>
+
+                        <div class="import-export-buttons">
+                            <button class="btn" type="button" onclick="fsOpen()">
+                                <span class="icon">📂</span> Datei öffnen
+                            </button>
+                            <button class="btn" type="button" id="btnFsSave" onclick="fsSave()" disabled
+                                style="opacity: 0.5;">
+                                <span class="icon">💾</span> Speichern
+                            </button>
+                            <button class="btn secondary" type="button" onclick="fsSaveAs()">
+                                <span class="icon">💾</span> Speichern unter...
+                            </button>
+                        </div>
+                        <div id="fsStatus" style="margin-top: 8px; font-size: 0.85em; color: #666;">
+                            Keine Datei geöffnet.
+                        </div>
+                    </div>
+
                     <div class="import-export-section">
-                        <h4>Daten exportieren</h4>
+                        <h4>Klassischer Import/Export</h4>
                         <div class="import-export-buttons">
                             <button class="btn" type="button" onclick="exportData('maerkte')">Marktplätze
                                 exportieren</button>
@@ -1606,7 +1632,7 @@
                     </div>
 
                     <div class="import-export-section">
-                        <h4>Daten importieren</h4>
+                        <h4>Daten importieren (Klassisch)</h4>
                         <div class="import-export-buttons">
                             <button class="btn" type="button" onclick="importData('maerkte')">Marktplätze
                                 importieren</button>
@@ -2827,6 +2853,135 @@
             URL.revokeObjectURL(url);
         }
 
+        // --- File System Access API Implementation ---
+        let fileHandle;
+
+        async function fsOpen() {
+            try {
+                [fileHandle] = await window.showOpenFilePicker({
+                    types: [{
+                        description: 'JSON Dateien',
+                        accept: { 'application/json': ['.json'] },
+                    }],
+                });
+
+                const file = await fileHandle.getFile();
+                const contents = await file.text();
+                const data = JSON.parse(contents);
+
+                applyImportedData(data);
+
+                document.getElementById('fsStatus').textContent = `Geöffnet: ${file.name}`;
+                document.getElementById('fsStatus').style.color = 'green';
+                enableSaveButton();
+
+            } catch (err) {
+                if (err.name !== 'AbortError') {
+                    console.error(err);
+                    alert('Fehler beim Öffnen der Datei.');
+                }
+            }
+        }
+
+        async function fsSave() {
+            if (!fileHandle) {
+                return fsSaveAs();
+            }
+
+            try {
+                const writable = await fileHandle.createWritable();
+                const data = getAllData();
+                await writable.write(JSON.stringify(data, null, 2));
+                await writable.close();
+
+                document.getElementById('fsStatus').textContent = `Gespeichert: ${fileHandle.name} (${new Date().toLocaleTimeString()})`;
+                document.getElementById('fsStatus').style.color = 'green';
+            } catch (err) {
+                console.error(err);
+                alert('Fehler beim Speichern.');
+            }
+        }
+
+        async function fsSaveAs() {
+            try {
+                const handle = await window.showSaveFilePicker({
+                    suggestedName: 'gebuehrenrechner-daten.json',
+                    types: [{
+                        description: 'JSON Dateien',
+                        accept: { 'application/json': ['.json'] },
+                    }],
+                });
+
+                fileHandle = handle;
+                const writable = await fileHandle.createWritable();
+                const data = getAllData();
+                await writable.write(JSON.stringify(data, null, 2));
+                await writable.close();
+
+                document.getElementById('fsStatus').textContent = `Gespeichert: ${fileHandle.name}`;
+                document.getElementById('fsStatus').style.color = 'green';
+                enableSaveButton();
+
+            } catch (err) {
+                if (err.name !== 'AbortError') {
+                    console.error(err);
+                    alert('Fehler beim Speichern.');
+                }
+            }
+        }
+
+        function enableSaveButton() {
+            const btn = document.getElementById('btnFsSave');
+            btn.disabled = false;
+            btn.style.opacity = '1';
+        }
+
+        function getAllData() {
+            return {
+                maerkte: maerkte,
+                kategorien: kategorien,
+                versand: versand,
+                favoritMarkt: favoritMarkt,
+                selectedKat: selectedKat,
+                selectedVersandTarif: selectedVersandTarif
+            };
+        }
+
+        function applyImportedData(importedData) {
+            if (importedData.maerkte && importedData.kategorien && importedData.versand) {
+                // Märkte
+                maerkte.length = 0;
+                importedData.maerkte.forEach(item => maerkte.push(item));
+
+                // Kategorien
+                Object.keys(kategorien).forEach(key => delete kategorien[key]);
+                Object.assign(kategorien, importedData.kategorien);
+
+                // Versand
+                versand.length = 0;
+                importedData.versand.forEach(item => versand.push(item));
+
+                // Einstellungen
+                if (importedData.favoritMarkt) favoritMarkt = importedData.favoritMarkt;
+                if (importedData.selectedKat) selectedKat = importedData.selectedKat;
+                if (importedData.selectedVersandTarif) selectedVersandTarif = importedData.selectedVersandTarif;
+
+                save();
+                renderAdmin();
+                updateKatSelect();
+                updateFavoritSelects();
+                updateVersandSelect();
+                loadProv();
+                loadEbayStaffeln();
+                loadVersand();
+                calc();
+
+                alert('Daten erfolgreich geladen!');
+            } else {
+                alert('Ungültiges Dateiformat.');
+            }
+        }
+
         function importData(type) {
             const input = document.createElement('input');
             input.type = 'file';
@@ -2873,29 +3028,7 @@
                                 }
                                 break;
                             case 'all':
-                                if (importedData.maerkte && importedData.kategorien && importedData.versand) {
-                                    // Märkte
-                                    maerkte.length = 0;
-                                    importedData.maerkte.forEach(item => maerkte.push(item));
-
-                                    // Kategorien
-                                    Object.keys(kategorien).forEach(key => delete kategorien[key]);
-                                    Object.assign(kategorien, importedData.kategorien);
-
-                                    // Versand
-                                    versand.length = 0;
-                                    importedData.versand.forEach(item => versand.push(item));
-
-                                    // Einstellungen
-                                    if (importedData.favoritMarkt) favoritMarkt = importedData.favoritMarkt;
-                                    if (importedData.selectedKat) selectedKat = importedData.selectedKat;
-                                    if (importedData.selectedVersandTarif) selectedVersandTarif = importedData.selectedVersandTarif;
-
-                                    alert('Alle Daten erfolgreich importiert!');
-                                } else {
-                                    alert('Ungültiges Dateiformat für Gesamtdaten.');
-                                    return;
-                                }
+                                applyImportedData(importedData);
                                 break;
                         }
 
