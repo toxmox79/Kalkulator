@@ -1,27 +1,23 @@
 <!DOCTYPE html>
+
 <html lang="de">
-
 <head>
-    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gebührenrechner 3.3 – Komplett</title>
-
-    <!-- PWA Meta Tags -->
-    <meta name="description" content="Gebührenrechner für Plattform-Vergleich und Versandberechnung">
-    <meta name="theme-color" content="#93c01f">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="default">
-    <meta name="apple-mobile-web-app-title" content="Gebührenrechner">
-
-    <!-- PWA Manifest -->
-    <link rel="manifest" href="./manifest.json">
-
-    <!-- Icons -->
-    <link rel="icon" type="image/png" href="./icons/favicon.png">
-    <link rel="apple-touch-icon" href="./icons/apple-touch-icon.png">
-
-    <style>
+<meta content="text/html; charset=utf-8" http-equiv="content-type"/>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Gebührenrechner 3.3 – Komplett</title>
+<!-- PWA Meta Tags -->
+<meta content="Gebührenrechner für Plattform-Vergleich und Versandberechnung" name="description"/>
+<meta content="#93c01f" name="theme-color"/>
+<meta content="yes" name="apple-mobile-web-app-capable"/>
+<meta content="default" name="apple-mobile-web-app-status-bar-style"/>
+<meta content="Gebührenrechner" name="apple-mobile-web-app-title"/>
+<!-- PWA Manifest -->
+<link href="./manifest.json" rel="manifest"/>
+<!-- Icons -->
+<link href="./icons/favicon.png" rel="icon" type="image/png"/>
+<link href="./icons/apple-touch-icon.png" rel="apple-touch-icon"/>
+<style>
         :root {
             --accent: #93c01f;
             --accent-dark: #7ba60d;
@@ -564,1535 +560,908 @@
         }
     </style>
 </head>
-
 <body>
-    <div class="container">
-        <div class="header">
-            <h1>Gebührenrechner 3.3</h1>
-            <p>Inkl. Plattform-Vergleich und Versandberechnung</p>
-        </div>
-
-        <div class="tabs">
-            <div class="tab active" data-tab="0">Rechner</div>
-            <div class="tab" data-tab="1">Provisionen</div>
-            <div class="tab" data-tab="2">Versandtarife</div>
-            <div class="tab" data-tab="3">Admin</div>
-        </div>
-
-        <div class="content">
-            <!-- TAB 0: RECHNER -->
-            <div class="tab-content" data-tab-content="0" style="display: block;">
-                <h2>Rechner</h2>
-
-                <div class="card-row">
-                    <!-- Artikel & Preisdaten -->
-                    <div class="card">
-                        <h3>Artikel- &amp; Preisdaten</h3>
-                        <div class="form-grid">
-                            <div class="form-group">
-                                <label>Einkaufspreis (EK) netto</label>
-                                <input id="ek" type="number" value="100">
-                            </div>
-                            <div class="form-group">
-                                <label>Verkaufspreis (VK) brutto</label>
-                                <input id="vk" type="number" value="150">
-                            </div>
-                            <div class="form-group">
-                                <label>Mehrwertsteuer (%)</label>
-                                <select id="mwst">
-                                    <option value="19" selected="selected">19 %</option>
-                                    <option value="7">7 %</option>
-                                    <option value="0">0 %</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label>Werbekosten (Anzeige) in % vom VK</label>
-                                <select id="anzeige">
-                                    <option value="0">0 %</option>
-                                    <option value="2" selected="selected">2 %</option>
-                                    <option value="5">5 %</option>
-                                    <option value="10">10 %</option>
-                                    <option value="15">15 %</option>
-                                    <option value="20">20 %</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label>Gutscheinkosten in % vom VK</label>
-                                <select id="gutschein">
-                                    <option value="0" selected="selected">0 %</option>
-                                    <option value="2">2 %</option>
-                                    <option value="5">5 %</option>
-                                    <option value="10">10 %</option>
-                                    <option value="15">15 %</option>
-                                    <option value="20">20 %</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label>Gewinnabsicht (Zielgewinn) netto</label>
-                                <select id="gewinnabsicht">
-                                    <option value="0" selected="selected">0 €</option>
-                                    <option value="5">5 €</option>
-                                    <option value="10">10 €</option>
-                                    <option value="20">20 €</option>
-                                    <option value="30">30 €</option>
-                                    <option value="50">50 €</option>
-                                    <option value="75">75 €</option>
-                                    <option value="100">100 €</option>
-                                </select>
-                                <span class="small-text">VK-Vorschlag wird auf diesen Zielgewinn optimiert.</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Paketdetails -->
-                    <div class="card">
-                        <h3>Paketdetails</h3>
-                        <div class="form-grid paket">
-                            <div class="form-group"><label>Gewicht (kg)</label><input id="gewicht" type="number"
-                                    value="60"></div>
-                            <div class="form-group"><label>Länge (cm)</label><input id="l" type="number" value="80">
-                            </div>
-                            <div class="form-group"><label>Breite (cm)</label><input id="b" type="number" value="60">
-                            </div>
-                            <div class="form-group"><label>Höhe (cm)</label><input id="h" type="number" value="90">
-                            </div>
-                            <div class="form-group">
-                                <label>L/B/H fixe Begrenzung beachten?</label>
-                                <div style="display:flex;align-items:center;gap:8px;">
-                                    <input type="checkbox" id="fix" checked="checked"><span>Ja</span>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label>Nur versicherte Tarife?</label>
-                                <button id="nurVersichertBtn" class="btn small secondary" type="button">Aus</button>
-                            </div>
-                            <div class="form-group" style="grid-column: 1 / -1;">
-                                <label>Kategorie</label>
-                                <select id="kat">
-                                    <option value="Haushaltsgeräte" selected="selected">Haushaltsgeräte</option>
-                                    <option value="Haushaltsgeräte klein">Haushaltsgeräte klein</option>
-                                    <option value="Heimwerker">Heimwerker</option>
-                                    <option value="Garten &amp; Terrasse">Garten &amp; Terrasse</option>
-                                    <option value="TV, Video &amp; Audio">TV, Video &amp; Audio</option>
-                                    <option value="Computer, Tablets &amp; Netzwerk">Computer, Tablets &amp; Netzwerk
+<div class="container">
+<div class="header">
+<h1>Gebührenrechner 3.3</h1>
+<p>Inkl. Plattform-Vergleich und Versandberechnung</p>
+</div>
+<div class="tabs">
+<div class="tab active" data-tab="0">Rechner</div>
+<div class="tab" data-tab="1">Provisionen</div>
+<div class="tab" data-tab="2">Versandtarife</div>
+<div class="tab" data-tab="3">Admin</div>
+</div>
+<div class="content">
+<!-- TAB 0: RECHNER -->
+<div class="tab-content" data-tab-content="0" style="display: block;">
+<h2>Rechner</h2>
+<div class="card-row">
+<!-- Artikel & Preisdaten -->
+<div class="card">
+<h3>Artikel- &amp; Preisdaten</h3>
+<div class="form-grid">
+<div class="form-group">
+<label>Einkaufspreis (EK) netto</label>
+<input id="ek" type="number" value="100"/>
+</div>
+<div class="form-group">
+<label>Verkaufspreis (VK) brutto</label>
+<input id="vk" type="number" value="150"/>
+</div>
+<div class="form-group">
+<label>Mehrwertsteuer (%)</label>
+<select id="mwst">
+<option selected="selected" value="19">19 %</option>
+<option value="7">7 %</option>
+<option value="0">0 %</option>
+</select>
+</div>
+<div class="form-group">
+<label>Werbekosten (Anzeige) in % vom VK</label>
+<select id="anzeige">
+<option value="0">0 %</option>
+<option selected="selected" value="2">2 %</option>
+<option value="5">5 %</option>
+<option value="10">10 %</option>
+<option value="15">15 %</option>
+<option value="20">20 %</option>
+</select>
+</div>
+<div class="form-group">
+<label>Gutscheinkosten in % vom VK</label>
+<select id="gutschein">
+<option selected="selected" value="0">0 %</option>
+<option value="2">2 %</option>
+<option value="5">5 %</option>
+<option value="10">10 %</option>
+<option value="15">15 %</option>
+<option value="20">20 %</option>
+</select>
+</div>
+<div class="form-group">
+<label>Gewinnabsicht (Zielgewinn) netto</label>
+<select id="gewinnabsicht">
+<option selected="selected" value="0">0 €</option>
+<option value="5">5 €</option>
+<option value="10">10 €</option>
+<option value="20">20 €</option>
+<option value="30">30 €</option>
+<option value="50">50 €</option>
+<option value="75">75 €</option>
+<option value="100">100 €</option>
+</select>
+<span class="small-text">VK-Vorschlag wird auf diesen Zielgewinn optimiert.</span>
+</div>
+</div>
+</div>
+<!-- Paketdetails -->
+<div class="card">
+<h3>Paketdetails</h3>
+<div class="form-grid paket">
+<div class="form-group"><label>Gewicht (kg)</label><input id="gewicht" type="number" value="60"/></div>
+<div class="form-group"><label>Länge (cm)</label><input id="l" type="number" value="80"/>
+</div>
+<div class="form-group"><label>Breite (cm)</label><input id="b" type="number" value="60"/>
+</div>
+<div class="form-group"><label>Höhe (cm)</label><input id="h" type="number" value="90"/>
+</div>
+<div class="form-group">
+<label>L/B/H fixe Begrenzung beachten?</label>
+<div style="display:flex;align-items:center;gap:8px;">
+<input checked="checked" id="fix" type="checkbox"/><span>Ja</span>
+</div>
+</div>
+<div class="form-group">
+<label>Nur versicherte Tarife?</label>
+<button class="btn small secondary" id="nurVersichertBtn" type="button">Aus</button>
+</div>
+<div class="form-group" style="grid-column: 1 / -1;">
+<label>Kategorie</label>
+<select id="kat">
+<option selected="selected" value="Haushaltsgeräte">Haushaltsgeräte</option>
+<option value="Haushaltsgeräte klein">Haushaltsgeräte klein</option>
+<option value="Heimwerker">Heimwerker</option>
+<option value="Garten &amp; Terrasse">Garten &amp; Terrasse</option>
+<option value="TV, Video &amp; Audio">TV, Video &amp; Audio</option>
+<option value="Computer, Tablets &amp; Netzwerk">Computer, Tablets &amp; Netzwerk
                                     </option>
-                                    <option value="Antiquitäten &amp; Kunst">Antiquitäten &amp; Kunst</option>
-                                    <option value="Baby">Baby</option>
-                                    <option value="Beauty &amp; Gesundheit">Beauty &amp; Gesundheit</option>
-                                    <option value="Möbel &amp; Wohnen">Möbel &amp; Wohnen</option>
-                                    <option value="Test">Test</option>
-                                </select>
-                            </div>
-                            <div class="form-group" style="grid-column: 1 / -1;">
-                                <label>Versandtarif (Rechner)</label>
-                                <select id="versandAuswahl">
-                                    <option value="auto" selected="selected">Automatisch (bester Tarif)</option>
-                                    <option value="DHL Paket">DHL Paket</option>
-                                    <option value="GEL HP bis 100">GEL HP bis 100</option>
-                                    <option value="GEL 90">GEL 90</option>
-                                    <option value="GEL 80">GEL 80</option>
-                                    <option value="GEL 70">GEL 70</option>
-                                    <option value="GEL 60">GEL 60</option>
-                                    <option value="GEL 50">GEL 50</option>
-                                    <option value="GEL 40">GEL 40</option>
-                                    <option value="GEL 30">GEL 30</option>
-                                    <option value="GEL 20">GEL 20</option>
-                                    <option value="GEL 10">GEL 10</option>
-                                    <option value="Geis bis 15 kg">Geis bis 15 kg</option>
-                                    <option value="Geis HP">Geis HP</option>
-                                    <option value="Geis XP">Geis XP</option>
-                                    <option value="Freight HP">Freight HP</option>
-                                    <option value="Freight XP">Freight XP</option>
-                                    <option value="Freight KT">Freight KT</option>
-                                    <option value="GEL HP bis 150 (HP)">GEL HP bis 150 (HP)</option>
-                                    <option value="GEL HP bis 200 (EP)">GEL HP bis 200 (EP)</option>
-                                    <option value="GEL HP 100 unpal.">GEL HP 100 unpal.</option>
-                                </select>
-                            </div>
+<option value="Antiquitäten &amp; Kunst">Antiquitäten &amp; Kunst</option>
+<option value="Baby">Baby</option>
+<option value="Beauty &amp; Gesundheit">Beauty &amp; Gesundheit</option>
+<option value="Möbel &amp; Wohnen">Möbel &amp; Wohnen</option>
+<option value="Test">Test</option>
+</select>
+</div>
+<div class="form-group" style="grid-column: 1 / -1;">
+<label>Versandtarif (Rechner)</label>
+<select id="versandAuswahl"><option selected="selected" value="auto">Automatisch (bester Tarif)</option><option value="DHL Paket">DHL Paket</option><option value="Geis bis 15 kg">Geis bis 15 kg</option><option value="Geis HP">Geis HP</option><option value="Geis XP">Geis XP</option><option value="GEL HP 100 unpal.">GEL HP 100 unpal.</option><option value="GEL HP NEU">GEL HP NEU</option><option value="GEL HP Pal NEU">GEL HP Pal NEU</option><option value="GEL FP NEU">GEL FP NEU</option><option value="GEL FP SIde by Side">GEL FP SIde by Side</option><option value="GEL Karton">GEL Karton</option></select>
+</div>
+</div>
+<div class="alert alert-warning" id="katWarning" style="display:none; margin-top:8px;">
+<strong>Achtung:</strong> Kategorie nicht gefunden – Standardwerte verwendet.
                         </div>
-                        <div id="katWarning" class="alert alert-warning" style="display:none; margin-top:8px;">
-                            <strong>Achtung:</strong> Kategorie nicht gefunden – Standardwerte verwendet.
-                        </div>
-                    </div>
-
-                    <!-- Live-Ergebnisse -->
-                    <div class="card result-panel">
-                        <h3 style="margin-bottom: 10px; font-size: 1.05em;">Live-Ergebnisse</h3>
-
-                        <div id="versandInfo" class="alert alert-info" style="margin-bottom: 8px;">
-                            <div>
-                                <strong>Versand:</strong> <span id="versandName">GEL HP bis 100</span> – <span
-                                    id="versandPreis">56.75</span> €
+</div>
+<!-- Live-Ergebnisse -->
+<div class="card result-panel">
+<h3 style="margin-bottom: 10px; font-size: 1.05em;">Live-Ergebnisse</h3>
+<div class="alert alert-info" id="versandInfo" style="margin-bottom: 8px;">
+<div>
+<strong>Versand:</strong> <span id="versandName">GEL FP NEU</span> – <span id="versandPreis">59.95</span> €
                             </div>
-                        </div>
-
-                        <div class="results-grid compact">
-                            <div class="result-card small">
-                                <h4>VK netto</h4>
-                                <div class="value" id="vkNetto">126.05 €</div>
-                                <div class="sub">Basis für Gebührenberechnung</div>
-                            </div>
-                            <div class="result-card small">
-                                <h4>Werbe- &amp; Gutschein-Kosten</h4>
-                                <div class="value" id="deals">3.00 €</div>
-                                <div class="sub">Summe aus Anzeige &amp; Gutschein</div>
-                            </div>
-                        </div>
-
-                        <div class="result-card big loss" id="favoritCard">
-                            <h4>Gewinn beim Favoriten: <span id="favoritMarkt">eBay</span></h4>
-                            <div class="value" id="favoritGewinn">-43.32 €</div>
-                            <div class="sub">
-                                <span class="badge badge-neutral">inkl. Versand &amp; Gebühren &amp; Marketing</span>
-                            </div>
-                        </div>
-
-                        <div class="card" id="vkProposal" style="margin-top: 10px; display:none;">
-                            <h3>VK-Vorschlag für Zielgewinn</h3>
-                            <div class="results-grid single">
-                                <div class="result-card small">
-                                    <h4>Vorgeschlagener VK brutto</h4>
-                                    <div class="value"><span id="proposedVK">0.00</span> €</div>
-                                </div>
-                                <div class="result-card small">
-                                    <h4>Resultierender Gewinn netto</h4>
-                                    <div class="value"><span id="proposedGewinn">0.00</span> €</div>
-                                </div>
-                            </div>
-                            <p class="small-text">Alle Gebühren + Versand + Werbe- &amp; Gutscheinkosten sind
+</div>
+<div class="results-grid compact">
+<div class="result-card small">
+<h4>VK netto</h4>
+<div class="value" id="vkNetto">126.05 €</div>
+<div class="sub">Basis für Gebührenberechnung</div>
+</div>
+<div class="result-card small">
+<h4>Werbe- &amp; Gutschein-Kosten</h4>
+<div class="value" id="deals">3.00 €</div>
+<div class="sub">Summe aus Anzeige &amp; Gutschein</div>
+</div>
+</div>
+<div class="result-card big loss" id="favoritCard">
+<h4>Gewinn beim Favoriten: <span id="favoritMarkt">eBay</span></h4>
+<div class="value" id="favoritGewinn">-43.32 €</div>
+<div class="sub">
+<span class="badge badge-neutral">inkl. Versand &amp; Gebühren &amp; Marketing</span>
+</div>
+</div>
+<div class="card" id="vkProposal" style="margin-top: 10px; display:none;">
+<h3>VK-Vorschlag für Zielgewinn</h3>
+<div class="results-grid single">
+<div class="result-card small">
+<h4>Vorgeschlagener VK brutto</h4>
+<div class="value"><span id="proposedVK">0.00</span> €</div>
+</div>
+<div class="result-card small">
+<h4>Resultierender Gewinn netto</h4>
+<div class="value"><span id="proposedGewinn">0.00</span> €</div>
+</div>
+</div>
+<p class="small-text">Alle Gebühren + Versand + Werbe- &amp; Gutscheinkosten sind
                                 berücksichtigt.</p>
-                        </div>
-
-                        <div class="table-container" style="margin-top: 12px;">
-                            <div class="section-header" style="padding: 6px 8px;">
-                                <h3>Plattformvergleich</h3>
-                                <div class="actions">
-                                    <span class="badge-pill">Favorit: <span id="favoritMarktLabel">eBay</span></span>
-                                    <button class="btn small secondary" type="button"
-                                        onclick="changeFavoritPrompt()">Favorit ändern</button>
-                                </div>
-                            </div>
-                            <div class="scrollable compact-table">
-                                <table id="plattformen">
-                                    <thead>
-                                        <tr>
-                                            <th>Plattform</th>
-                                            <th>Gebühren (€)</th>
-                                            <th>Versand (€)</th>
-                                            <th>Marketing (€)</th>
-                                            <th>Gesamtkosten (€)</th>
-                                            <th>Gewinn (€)</th>
-                                            <th>Rentabel?</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr class="negative">
-                                            <td><strong>eBay</strong></td>
-                                            <td>10.10 €</td>
-                                            <td>56.75 €</td>
-                                            <td>2.52 €</td>
-                                            <td>69.37 €</td>
-                                            <td><strong>-43.32 €</strong></td>
-                                            <td><span class="badge badge-danger">Nein</span></td>
-                                        </tr>
-                                        <tr class="negative">
-                                            <td><strong>Check24</strong></td>
-                                            <td>6.30 €</td>
-                                            <td>56.75 €</td>
-                                            <td>2.52 €</td>
-                                            <td>65.57 €</td>
-                                            <td><strong>-39.52 €</strong></td>
-                                            <td><span class="badge badge-danger">Nein</span></td>
-                                        </tr>
-                                        <tr class="negative">
-                                            <td><strong>Kaufland</strong></td>
-                                            <td>8.82 €</td>
-                                            <td>56.75 €</td>
-                                            <td>2.52 €</td>
-                                            <td>68.09 €</td>
-                                            <td><strong>-42.04 €</strong></td>
-                                            <td><span class="badge badge-danger">Nein</span></td>
-                                        </tr>
-                                        <tr class="negative">
-                                            <td><strong>Amazon</strong></td>
-                                            <td>18.91 €</td>
-                                            <td>56.75 €</td>
-                                            <td>2.52 €</td>
-                                            <td>78.18 €</td>
-                                            <td><strong>-52.13 €</strong></td>
-                                            <td><span class="badge badge-danger">Nein</span></td>
-                                        </tr>
-                                        <tr class="negative">
-                                            <td><strong>Metro</strong></td>
-                                            <td>8.82 €</td>
-                                            <td>56.75 €</td>
-                                            <td>2.52 €</td>
-                                            <td>68.09 €</td>
-                                            <td><strong>-42.04 €</strong></td>
-                                            <td><span class="badge badge-danger">Nein</span></td>
-                                        </tr>
-                                        <tr class="negative">
-                                            <td><strong>Hood</strong></td>
-                                            <td>7.56 €</td>
-                                            <td>56.75 €</td>
-                                            <td>2.52 €</td>
-                                            <td>66.83 €</td>
-                                            <td><strong>-40.78 €</strong></td>
-                                            <td><span class="badge badge-danger">Nein</span></td>
-                                        </tr>
-                                        <tr class="negative">
-                                            <td><strong>OTTO</strong></td>
-                                            <td>10.08 €</td>
-                                            <td>56.75 €</td>
-                                            <td>2.52 €</td>
-                                            <td>69.36 €</td>
-                                            <td><strong>-43.30 €</strong></td>
-                                            <td><span class="badge badge-danger">Nein</span></td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-
-                        <p class="small-text" style="margin-top: 8px;">
+</div>
+<div class="table-container" style="margin-top: 12px;">
+<div class="section-header" style="padding: 6px 8px;">
+<h3>Plattformvergleich</h3>
+<div class="actions">
+<span class="badge-pill">Favorit: <span id="favoritMarktLabel">eBay</span></span>
+<button class="btn small secondary" onclick="changeFavoritPrompt()" type="button">Favorit ändern</button>
+</div>
+</div>
+<div class="scrollable compact-table">
+<table id="plattformen">
+<thead>
+<tr>
+<th>Plattform</th>
+<th>Gebühren (€)</th>
+<th>Versand (€)</th>
+<th>Marketing (€)</th>
+<th>Gesamtkosten (€)</th>
+<th>Gewinn (€)</th>
+<th>Rentabel?</th>
+</tr>
+</thead>
+<tbody>
+<tr class="negative">
+<td><strong>eBay</strong></td>
+<td>10.10 €</td>
+<td>56.75 €</td>
+<td>2.52 €</td>
+<td>69.37 €</td>
+<td><strong>-43.32 €</strong></td>
+<td><span class="badge badge-danger">Nein</span></td>
+</tr>
+<tr class="negative">
+<td><strong>Check24</strong></td>
+<td>6.30 €</td>
+<td>56.75 €</td>
+<td>2.52 €</td>
+<td>65.57 €</td>
+<td><strong>-39.52 €</strong></td>
+<td><span class="badge badge-danger">Nein</span></td>
+</tr>
+<tr class="negative">
+<td><strong>Kaufland</strong></td>
+<td>8.82 €</td>
+<td>56.75 €</td>
+<td>2.52 €</td>
+<td>68.09 €</td>
+<td><strong>-42.04 €</strong></td>
+<td><span class="badge badge-danger">Nein</span></td>
+</tr>
+<tr class="negative">
+<td><strong>Amazon</strong></td>
+<td>18.91 €</td>
+<td>56.75 €</td>
+<td>2.52 €</td>
+<td>78.18 €</td>
+<td><strong>-52.13 €</strong></td>
+<td><span class="badge badge-danger">Nein</span></td>
+</tr>
+<tr class="negative">
+<td><strong>Metro</strong></td>
+<td>8.82 €</td>
+<td>56.75 €</td>
+<td>2.52 €</td>
+<td>68.09 €</td>
+<td><strong>-42.04 €</strong></td>
+<td><span class="badge badge-danger">Nein</span></td>
+</tr>
+<tr class="negative">
+<td><strong>Hood</strong></td>
+<td>7.56 €</td>
+<td>56.75 €</td>
+<td>2.52 €</td>
+<td>66.83 €</td>
+<td><strong>-40.78 €</strong></td>
+<td><span class="badge badge-danger">Nein</span></td>
+</tr>
+<tr class="negative">
+<td><strong>OTTO</strong></td>
+<td>10.08 €</td>
+<td>56.75 €</td>
+<td>2.52 €</td>
+<td>69.36 €</td>
+<td><strong>-43.30 €</strong></td>
+<td><span class="badge badge-danger">Nein</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p class="small-text" style="margin-top: 8px;">
                             Hinweis: Die Berechnungen basieren auf den
                             aktuell hinterlegten Kategorien, Versandtarifen und
                             Plattformkonditionen.
                         </p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- TAB 1: PROVISIONEN -->
-            <div class="tab-content" data-tab-content="1" style="display: none;">
-                <h2>Provisionen &amp; Kategorien</h2>
-
-                <div class="card">
-                    <div class="section-header">
-                        <h3>Provisionsübersicht</h3>
-                        <div class="actions">
-                            <button class="btn small" type="button" onclick="unlockTable('provTable')"><span
-                                    class="icon">✏️</span><span>Entsperren &amp; Bearbeiten</span></button>
-                            <button class="btn small secondary" type="button" onclick="resetProv()">Standard
+</div>
+</div>
+</div>
+<!-- TAB 1: PROVISIONEN -->
+<div class="tab-content" data-tab-content="1" style="display: none;">
+<h2>Provisionen &amp; Kategorien</h2>
+<div class="card">
+<div class="section-header">
+<h3>Provisionsübersicht</h3>
+<div class="actions">
+<button class="btn small" onclick="unlockTable('provTable')" type="button"><span class="icon">✏️</span><span>Entsperren &amp; Bearbeiten</span></button>
+<button class="btn small secondary" onclick="resetProv()" type="button">Standard
                                 wiederherstellen</button>
-                        </div>
-                    </div>
-                    <p class="section-description">
+</div>
+</div>
+<p class="section-description">
                         Hier sind die hinterlegten Plattformen und ihre
                         Provisionen pro Kategorie. Änderungen wirken sich direkt auf den Rechner
                         aus.
                     </p>
-                    <div class="small-text" style="margin-bottom:8px;">
-                        <strong>Favorit für Gewinnanzeige:</strong>
-                        <select id="favoritMarktProv"
-                            style="padding:4px 8px; border-radius:999px; border:1px solid var(--border); font-size:0.8em;">
-                            <option value="eBay" selected="selected">eBay</option>
-                            <option value="Check24">Check24</option>
-                            <option value="Kaufland">Kaufland</option>
-                            <option value="Amazon">Amazon</option>
-                            <option value="Metro">Metro</option>
-                            <option value="Hood">Hood</option>
-                            <option value="OTTO">OTTO</option>
-                        </select>
-                    </div>
-                    <div class="table-container locked" id="provTable">
-                        <div class="scrollable">
-                            <table class="table-compact">
-                                <thead>
-                                    <tr>
-                                        <th>Kategorie</th>
-                                        <th>Festpreis-Fixbetrag (€)</th>
-                                        <th>eBay</th>
-                                        <th>Check24</th>
-                                        <th>Kaufland</th>
-                                        <th>Amazon</th>
-                                        <th>Metro</th>
-                                        <th>Hood</th>
-                                        <th>OTTO</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="provBody">
-                                    <tr>
-                                        <td>Haushaltsgeräte</td>
-                                        <td>0.35 €</td>
-                                        <td>6.50%</td>
-                                        <td>5.00%</td>
-                                        <td>7.00%</td>
-                                        <td>15.00%</td>
-                                        <td>7.00%</td>
-                                        <td>6.00%</td>
-                                        <td>8.00%</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Haushaltsgeräte klein</td>
-                                        <td>0.35 €</td>
-                                        <td>6.50%</td>
-                                        <td>8.00%</td>
-                                        <td>13.00%</td>
-                                        <td>15.00%</td>
-                                        <td>7.00%</td>
-                                        <td>4.00%</td>
-                                        <td>15.00%</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Heimwerker</td>
-                                        <td>0.35 €</td>
-                                        <td>12.00%</td>
-                                        <td>10.00%</td>
-                                        <td>10.00%</td>
-                                        <td>13.00%</td>
-                                        <td>10.00%</td>
-                                        <td>9.00%</td>
-                                        <td>12.00%</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Garten &amp; Terrasse</td>
-                                        <td>0.35 €</td>
-                                        <td>12.00%</td>
-                                        <td>12.00%</td>
-                                        <td>14.00%</td>
-                                        <td>15.00%</td>
-                                        <td>10.00%</td>
-                                        <td>9.00%</td>
-                                        <td>12.00%</td>
-                                    </tr>
-                                    <tr>
-                                        <td>TV, Video &amp; Audio</td>
-                                        <td>0.35 €</td>
-                                        <td>6.50%</td>
-                                        <td>6.00%</td>
-                                        <td>7.00%</td>
-                                        <td>7.00%</td>
-                                        <td>7.00%</td>
-                                        <td>6.00%</td>
-                                        <td>7.00%</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Computer, Tablets &amp; Netzwerk</td>
-                                        <td>0.35 €</td>
-                                        <td>6.50%</td>
-                                        <td>5.00%</td>
-                                        <td>7.00%</td>
-                                        <td>7.00%</td>
-                                        <td>7.00%</td>
-                                        <td>0.00%</td>
-                                        <td>7.00%</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Antiquitäten &amp; Kunst</td>
-                                        <td>0.35 €</td>
-                                        <td>11.00%</td>
-                                        <td>0.00%</td>
-                                        <td>0.00%</td>
-                                        <td>0.00%</td>
-                                        <td>0.00%</td>
-                                        <td>0.00%</td>
-                                        <td>0.00%</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Baby</td>
-                                        <td>0.35 €</td>
-                                        <td>11.00%</td>
-                                        <td>0.00%</td>
-                                        <td>0.00%</td>
-                                        <td>0.00%</td>
-                                        <td>0.00%</td>
-                                        <td>0.00%</td>
-                                        <td>0.00%</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Beauty &amp; Gesundheit</td>
-                                        <td>0.35 €</td>
-                                        <td>11.00%</td>
-                                        <td>11.00%</td>
-                                        <td>0.00%</td>
-                                        <td>0.00%</td>
-                                        <td>0.00%</td>
-                                        <td>0.00%</td>
-                                        <td>0.00%</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Möbel &amp; Wohnen</td>
-                                        <td>0.35 €</td>
-                                        <td>12.00%</td>
-                                        <td>0.00%</td>
-                                        <td>0.00%</td>
-                                        <td>0.00%</td>
-                                        <td>0.00%</td>
-                                        <td>0.00%</td>
-                                        <td>0.00%</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Test</td>
-                                        <td>0.35 €</td>
-                                        <td>11.98%</td>
-                                        <td>10.00%</td>
-                                        <td>10.00%</td>
-                                        <td>15.00%</td>
-                                        <td>8.00%</td>
-                                        <td>6.00%</td>
-                                        <td>10.00%</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                    <p class="small-text">
+<div class="small-text" style="margin-bottom:8px;">
+<strong>Favorit für Gewinnanzeige:</strong>
+<select id="favoritMarktProv" style="padding:4px 8px; border-radius:999px; border:1px solid var(--border); font-size:0.8em;">
+<option selected="selected" value="eBay">eBay</option>
+<option value="Check24">Check24</option>
+<option value="Kaufland">Kaufland</option>
+<option value="Amazon">Amazon</option>
+<option value="Metro">Metro</option>
+<option value="Hood">Hood</option>
+<option value="OTTO">OTTO</option>
+</select>
+</div>
+<div class="table-container locked" id="provTable">
+<div class="scrollable">
+<table class="table-compact">
+<thead>
+<tr>
+<th>Kategorie</th>
+<th>Festpreis-Fixbetrag (€)</th>
+<th>eBay</th>
+<th>Check24</th>
+<th>Kaufland</th>
+<th>Amazon</th>
+<th>Metro</th>
+<th>Hood</th>
+<th>OTTO</th>
+</tr>
+</thead>
+<tbody id="provBody">
+<tr>
+<td>Haushaltsgeräte</td>
+<td>0.35 €</td>
+<td>6.50%</td>
+<td>5.00%</td>
+<td>7.00%</td>
+<td>15.00%</td>
+<td>7.00%</td>
+<td>6.00%</td>
+<td>8.00%</td>
+</tr>
+<tr>
+<td>Haushaltsgeräte klein</td>
+<td>0.35 €</td>
+<td>6.50%</td>
+<td>8.00%</td>
+<td>13.00%</td>
+<td>15.00%</td>
+<td>7.00%</td>
+<td>4.00%</td>
+<td>15.00%</td>
+</tr>
+<tr>
+<td>Heimwerker</td>
+<td>0.35 €</td>
+<td>12.00%</td>
+<td>10.00%</td>
+<td>10.00%</td>
+<td>13.00%</td>
+<td>10.00%</td>
+<td>9.00%</td>
+<td>12.00%</td>
+</tr>
+<tr>
+<td>Garten &amp; Terrasse</td>
+<td>0.35 €</td>
+<td>12.00%</td>
+<td>12.00%</td>
+<td>14.00%</td>
+<td>15.00%</td>
+<td>10.00%</td>
+<td>9.00%</td>
+<td>12.00%</td>
+</tr>
+<tr>
+<td>TV, Video &amp; Audio</td>
+<td>0.35 €</td>
+<td>6.50%</td>
+<td>6.00%</td>
+<td>7.00%</td>
+<td>7.00%</td>
+<td>7.00%</td>
+<td>6.00%</td>
+<td>7.00%</td>
+</tr>
+<tr>
+<td>Computer, Tablets &amp; Netzwerk</td>
+<td>0.35 €</td>
+<td>6.50%</td>
+<td>5.00%</td>
+<td>7.00%</td>
+<td>7.00%</td>
+<td>7.00%</td>
+<td>0.00%</td>
+<td>7.00%</td>
+</tr>
+<tr>
+<td>Antiquitäten &amp; Kunst</td>
+<td>0.35 €</td>
+<td>11.00%</td>
+<td>0.00%</td>
+<td>0.00%</td>
+<td>0.00%</td>
+<td>0.00%</td>
+<td>0.00%</td>
+<td>0.00%</td>
+</tr>
+<tr>
+<td>Baby</td>
+<td>0.35 €</td>
+<td>11.00%</td>
+<td>0.00%</td>
+<td>0.00%</td>
+<td>0.00%</td>
+<td>0.00%</td>
+<td>0.00%</td>
+<td>0.00%</td>
+</tr>
+<tr>
+<td>Beauty &amp; Gesundheit</td>
+<td>0.35 €</td>
+<td>11.00%</td>
+<td>11.00%</td>
+<td>0.00%</td>
+<td>0.00%</td>
+<td>0.00%</td>
+<td>0.00%</td>
+<td>0.00%</td>
+</tr>
+<tr>
+<td>Möbel &amp; Wohnen</td>
+<td>0.35 €</td>
+<td>12.00%</td>
+<td>0.00%</td>
+<td>0.00%</td>
+<td>0.00%</td>
+<td>0.00%</td>
+<td>0.00%</td>
+<td>0.00%</td>
+</tr>
+<tr>
+<td>Test</td>
+<td>0.35 €</td>
+<td>11.98%</td>
+<td>10.00%</td>
+<td>10.00%</td>
+<td>15.00%</td>
+<td>8.00%</td>
+<td>6.00%</td>
+<td>10.00%</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p class="small-text">
                         eBay-Staffeln (Satz 1 / Grenze / Satz 2) verwaltest du in der Tabelle „eBay-Staffeln“ darunter.
                     </p>
-                </div>
-
-                <div class="card" style="margin-top:16px;">
-                    <div class="section-header">
-                        <h3>eBay-Staffeln pro Kategorie</h3>
-                    </div>
-                    <p class="section-description">
+</div>
+<div class="card" style="margin-top:16px;">
+<div class="section-header">
+<h3>eBay-Staffeln pro Kategorie</h3>
+</div>
+<p class="section-description">
                         Hier siehst du die eBay-Gebühren-Staffel je Kategorie. Berechnung erfolgt auf VK
                         <strong>brutto</strong>:
-                        Satz&nbsp;1 bis zur Grenze, danach Satz&nbsp;2 auf den Rest.
+                        Satz 1 bis zur Grenze, danach Satz 2 auf den Rest.
                     </p>
-                    <div class="table-container" id="ebayStaffelTable">
-                        <div class="scrollable">
-                            <table class="table-compact">
-                                <thead>
-                                    <tr>
-                                        <th>Kategorie</th>
-                                        <th>eBay Kategorie-ID</th>
-                                        <th>Satz 1 (%)</th>
-                                        <th>Grenze (€)</th>
-                                        <th>Satz 2 (%)</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="ebayStaffelBody">
-                                    <tr>
-                                        <td>Haushaltsgeräte</td>
-                                        <td>20710</td>
-                                        <td>6.50</td>
-                                        <td>400.00</td>
-                                        <td>2.00</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Haushaltsgeräte klein</td>
-                                        <td>20710</td>
-                                        <td>6.50</td>
-                                        <td>400.00</td>
-                                        <td>2.00</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Heimwerker</td>
-                                        <td>3187</td>
-                                        <td>12.00</td>
-                                        <td>400.00</td>
-                                        <td>2.00</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Garten &amp; Terrasse</td>
-                                        <td>159912</td>
-                                        <td>12.00</td>
-                                        <td>200.00</td>
-                                        <td>2.00</td>
-                                    </tr>
-                                    <tr>
-                                        <td>TV, Video &amp; Audio</td>
-                                        <td>293</td>
-                                        <td>6.50</td>
-                                        <td>400.00</td>
-                                        <td>2.00</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Computer, Tablets &amp; Netzwerk</td>
-                                        <td>58058</td>
-                                        <td>6.50</td>
-                                        <td>400.00</td>
-                                        <td>2.00</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Antiquitäten &amp; Kunst</td>
-                                        <td>353</td>
-                                        <td>11.00</td>
-                                        <td>990.00</td>
-                                        <td>2.00</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Baby</td>
-                                        <td>2984</td>
-                                        <td>11.00</td>
-                                        <td>990.00</td>
-                                        <td>2.00</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Beauty &amp; Gesundheit</td>
-                                        <td>26395</td>
-                                        <td>12.00</td>
-                                        <td>990.00</td>
-                                        <td>2.00</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Möbel &amp; Wohnen</td>
-                                        <td>11700</td>
-                                        <td>12.00</td>
-                                        <td>990.00</td>
-                                        <td>2.00</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Test</td>
-                                        <td></td>
-                                        <td>11.98</td>
-                                        <td>200.00</td>
-                                        <td>2.00</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                    <p class="small-text">
+<div class="table-container" id="ebayStaffelTable">
+<div class="scrollable">
+<table class="table-compact">
+<thead>
+<tr>
+<th>Kategorie</th>
+<th>eBay Kategorie-ID</th>
+<th>Satz 1 (%)</th>
+<th>Grenze (€)</th>
+<th>Satz 2 (%)</th>
+</tr>
+</thead>
+<tbody id="ebayStaffelBody">
+<tr>
+<td>Haushaltsgeräte</td>
+<td>20710</td>
+<td>6.50</td>
+<td>400.00</td>
+<td>2.00</td>
+</tr>
+<tr>
+<td>Haushaltsgeräte klein</td>
+<td>20710</td>
+<td>6.50</td>
+<td>400.00</td>
+<td>2.00</td>
+</tr>
+<tr>
+<td>Heimwerker</td>
+<td>3187</td>
+<td>12.00</td>
+<td>400.00</td>
+<td>2.00</td>
+</tr>
+<tr>
+<td>Garten &amp; Terrasse</td>
+<td>159912</td>
+<td>12.00</td>
+<td>200.00</td>
+<td>2.00</td>
+</tr>
+<tr>
+<td>TV, Video &amp; Audio</td>
+<td>293</td>
+<td>6.50</td>
+<td>400.00</td>
+<td>2.00</td>
+</tr>
+<tr>
+<td>Computer, Tablets &amp; Netzwerk</td>
+<td>58058</td>
+<td>6.50</td>
+<td>400.00</td>
+<td>2.00</td>
+</tr>
+<tr>
+<td>Antiquitäten &amp; Kunst</td>
+<td>353</td>
+<td>11.00</td>
+<td>990.00</td>
+<td>2.00</td>
+</tr>
+<tr>
+<td>Baby</td>
+<td>2984</td>
+<td>11.00</td>
+<td>990.00</td>
+<td>2.00</td>
+</tr>
+<tr>
+<td>Beauty &amp; Gesundheit</td>
+<td>26395</td>
+<td>12.00</td>
+<td>990.00</td>
+<td>2.00</td>
+</tr>
+<tr>
+<td>Möbel &amp; Wohnen</td>
+<td>11700</td>
+<td>12.00</td>
+<td>990.00</td>
+<td>2.00</td>
+</tr>
+<tr>
+<td>Test</td>
+<td></td>
+<td>11.98</td>
+<td>200.00</td>
+<td>2.00</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p class="small-text">
                         Der Festpreis-Fixbetrag je Kategorie kommt aus der Spalte „Festpreis-Fixbetrag (€)“ oben.
                     </p>
-                </div>
-            </div>
-
-            <!-- TAB 2: VERSANDTARIFE -->
-            <div class="tab-content" data-tab-content="2" style="display: none;">
-                <h2>Versandtarife</h2>
-                <div class="card">
-                    <div class="section-header">
-                        <h3>Versandtarife verwalten</h3>
-                        <div class="actions">
-                            <button class="btn small" type="button" onclick="unlockTable('versandTable')"><span
-                                    class="icon">✏️</span><span>Entsperren &amp; Bearbeiten</span></button>
-                            <button class="btn small secondary" type="button" onclick="resetVersand()">Standard
+</div>
+</div>
+<!-- TAB 2: VERSANDTARIFE -->
+<div class="tab-content" data-tab-content="2" style="display: none;">
+<h2>Versandtarife</h2>
+<div class="card">
+<div class="section-header">
+<h3>Versandtarife verwalten</h3>
+<div class="actions">
+<button class="btn small" onclick="unlockTable('versandTable')" type="button"><span class="icon">✏️</span><span>Entsperren &amp; Bearbeiten</span></button>
+<button class="btn small secondary" onclick="resetVersand()" type="button">Standard
                                 wiederherstellen</button>
-                        </div>
-                    </div>
-                    <p class="section-description">
+</div>
+</div>
+<p class="section-description">
                         Die hier hinterlegten Versandtarife werden im
                         Rechner zur automatischen Auswahl des günstigsten passenden Tarifs
                         verwendet – oder manuell im Rechner als fester Tarif ausgewählt.
                     </p>
-                    <div class="table-container locked" id="versandTable">
-                        <div class="scrollable compact-table">
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th>Name</th>
-                                        <th>Grundpreis</th>
-                                        <th>Versichert?</th>
-                                        <th>Versicherung</th>
-                                        <th>Treibstoff (%)</th>
-                                        <th>Treibstoff (€)</th>
-                                        <th>CO₂</th>
-                                        <th>Palettenkosten</th>
-                                        <th>Sonstige</th>
-                                        <th>Gesamtpreis</th>
-                                        <th>max. Gewicht</th>
-                                        <th>max. Volumen</th>
-                                        <th>max. L</th>
-                                        <th>max. B</th>
-                                        <th>max. H</th>
-                                        <th>Palettiert?</th>
-                                        <th>Divisor</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>DHL Paket</td>
-                                        <td>5.95</td>
-                                        <td>Nein</td>
-                                        <td>0</td>
-                                        <td>0%</td>
-                                        <td>0</td>
-                                        <td>0</td>
-                                        <td>0</td>
-                                        <td>0</td>
-                                        <td><strong>5.95</strong></td>
-                                        <td>31.5</td>
-                                        <td>0</td>
-                                        <td>120</td>
-                                        <td>60</td>
-                                        <td>60</td>
-                                        <td>Nein</td>
-                                        <td>0</td>
-                                    </tr>
-                                    <tr>
-                                        <td>GEL HP bis 100</td>
-                                        <td>44.85</td>
-                                        <td>Ja</td>
-                                        <td>7.9</td>
-                                        <td>0%</td>
-                                        <td>4</td>
-                                        <td>0</td>
-                                        <td>0</td>
-                                        <td>0</td>
-                                        <td><strong>56.75</strong></td>
-                                        <td>101</td>
-                                        <td>101</td>
-                                        <td>80</td>
-                                        <td>66</td>
-                                        <td>240</td>
-                                        <td>Nein</td>
-                                        <td>6000</td>
-                                    </tr>
-                                    <tr>
-                                        <td>GEL 90</td>
-                                        <td>68.56</td>
-                                        <td>Ja</td>
-                                        <td>7.9</td>
-                                        <td>0%</td>
-                                        <td>4</td>
-                                        <td>0</td>
-                                        <td>0</td>
-                                        <td>0</td>
-                                        <td><strong>80.46</strong></td>
-                                        <td>60</td>
-                                        <td>90</td>
-                                        <td>320</td>
-                                        <td>120</td>
-                                        <td>225</td>
-                                        <td>Nein</td>
-                                        <td>6000</td>
-                                    </tr>
-                                    <tr>
-                                        <td>GEL 80</td>
-                                        <td>63.28</td>
-                                        <td>Ja</td>
-                                        <td>7.9</td>
-                                        <td>0%</td>
-                                        <td>4</td>
-                                        <td>0</td>
-                                        <td>0</td>
-                                        <td>0</td>
-                                        <td><strong>75.18</strong></td>
-                                        <td>60</td>
-                                        <td>80</td>
-                                        <td>320</td>
-                                        <td>120</td>
-                                        <td>225</td>
-                                        <td>Nein</td>
-                                        <td>6000</td>
-                                    </tr>
-                                    <tr>
-                                        <td>GEL 70</td>
-                                        <td>58.01</td>
-                                        <td>Ja</td>
-                                        <td>7.9</td>
-                                        <td>0%</td>
-                                        <td>4</td>
-                                        <td>0</td>
-                                        <td>0</td>
-                                        <td>0</td>
-                                        <td><strong>69.91</strong></td>
-                                        <td>60</td>
-                                        <td>70</td>
-                                        <td>320</td>
-                                        <td>120</td>
-                                        <td>225</td>
-                                        <td>Nein</td>
-                                        <td>6000</td>
-                                    </tr>
-                                    <tr>
-                                        <td>GEL 60</td>
-                                        <td>51.89</td>
-                                        <td>Ja</td>
-                                        <td>7.9</td>
-                                        <td>0%</td>
-                                        <td>4</td>
-                                        <td>0</td>
-                                        <td>0</td>
-                                        <td>0</td>
-                                        <td><strong>63.79</strong></td>
-                                        <td>60</td>
-                                        <td>60</td>
-                                        <td>320</td>
-                                        <td>120</td>
-                                        <td>225</td>
-                                        <td>Nein</td>
-                                        <td>6000</td>
-                                    </tr>
-                                    <tr>
-                                        <td>GEL 50</td>
-                                        <td>45.01</td>
-                                        <td>Ja</td>
-                                        <td>7.9</td>
-                                        <td>0%</td>
-                                        <td>0</td>
-                                        <td>0</td>
-                                        <td>4</td>
-                                        <td>0</td>
-                                        <td><strong>56.91</strong></td>
-                                        <td>50</td>
-                                        <td>50</td>
-                                        <td>320</td>
-                                        <td>120</td>
-                                        <td>225</td>
-                                        <td>Nein</td>
-                                        <td>6000</td>
-                                    </tr>
-                                    <tr>
-                                        <td>GEL 40</td>
-                                        <td>36.99</td>
-                                        <td>Ja</td>
-                                        <td>7.9</td>
-                                        <td>0%</td>
-                                        <td>0</td>
-                                        <td>0</td>
-                                        <td>4</td>
-                                        <td>0</td>
-                                        <td><strong>48.89</strong></td>
-                                        <td>40</td>
-                                        <td>40</td>
-                                        <td>320</td>
-                                        <td>120</td>
-                                        <td>225</td>
-                                        <td>Nein</td>
-                                        <td>6000</td>
-                                    </tr>
-                                    <tr>
-                                        <td>GEL 30</td>
-                                        <td>33.78</td>
-                                        <td>Ja</td>
-                                        <td>7.9</td>
-                                        <td>0%</td>
-                                        <td>0</td>
-                                        <td>0</td>
-                                        <td>4</td>
-                                        <td>0</td>
-                                        <td><strong>45.68</strong></td>
-                                        <td>30</td>
-                                        <td>30</td>
-                                        <td>320</td>
-                                        <td>120</td>
-                                        <td>225</td>
-                                        <td>Nein</td>
-                                        <td>6000</td>
-                                    </tr>
-                                    <tr>
-                                        <td>GEL 20</td>
-                                        <td>26.6</td>
-                                        <td>Ja</td>
-                                        <td>7.9</td>
-                                        <td>0%</td>
-                                        <td>0</td>
-                                        <td>0</td>
-                                        <td>4</td>
-                                        <td>0</td>
-                                        <td><strong>38.50</strong></td>
-                                        <td>20</td>
-                                        <td>20</td>
-                                        <td>320</td>
-                                        <td>120</td>
-                                        <td>225</td>
-                                        <td>Nein</td>
-                                        <td>6000</td>
-                                    </tr>
-                                    <tr>
-                                        <td>GEL 10</td>
-                                        <td>19.72</td>
-                                        <td>Ja</td>
-                                        <td>7.9</td>
-                                        <td>0%</td>
-                                        <td>0</td>
-                                        <td>0</td>
-                                        <td>4</td>
-                                        <td>0</td>
-                                        <td><strong>31.62</strong></td>
-                                        <td>10</td>
-                                        <td>10</td>
-                                        <td>320</td>
-                                        <td>120</td>
-                                        <td>225</td>
-                                        <td>Nein</td>
-                                        <td>6000</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Geis bis 15 kg</td>
-                                        <td>21</td>
-                                        <td>Ja</td>
-                                        <td>7.9</td>
-                                        <td>0%</td>
-                                        <td>0</td>
-                                        <td>0</td>
-                                        <td>6.9</td>
-                                        <td>0</td>
-                                        <td><strong>35.80</strong></td>
-                                        <td>15</td>
-                                        <td>50</td>
-                                        <td>250</td>
-                                        <td>40</td>
-                                        <td>40</td>
-                                        <td>Nein</td>
-                                        <td>0</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Geis HP</td>
-                                        <td>33</td>
-                                        <td>Ja</td>
-                                        <td>7.9</td>
-                                        <td>0%</td>
-                                        <td>2.97</td>
-                                        <td>0</td>
-                                        <td>6.9</td>
-                                        <td>0</td>
-                                        <td><strong>50.77</strong></td>
-                                        <td>100</td>
-                                        <td>85</td>
-                                        <td>65</td>
-                                        <td>22</td>
-                                        <td>0</td>
-                                        <td>Ja</td>
-                                        <td>0</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Geis XP</td>
-                                        <td>51.6</td>
-                                        <td>Ja</td>
-                                        <td>7.9</td>
-                                        <td>0%</td>
-                                        <td>6.59</td>
-                                        <td>0</td>
-                                        <td>6.9</td>
-                                        <td>0</td>
-                                        <td><strong>72.99</strong></td>
-                                        <td>1000</td>
-                                        <td>300</td>
-                                        <td>300</td>
-                                        <td>200</td>
-                                        <td>200</td>
-                                        <td>Ja</td>
-                                        <td>0</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Freight HP</td>
-                                        <td>39.58</td>
-                                        <td>Ja</td>
-                                        <td>7.9</td>
-                                        <td>10%</td>
-                                        <td>0</td>
-                                        <td>3.96</td>
-                                        <td>3.59</td>
-                                        <td>2.97</td>
-                                        <td><strong>61.96</strong></td>
-                                        <td>80</td>
-                                        <td>80</td>
-                                        <td>65</td>
-                                        <td>240</td>
-                                        <td>0</td>
-                                        <td>Ja</td>
-                                        <td>0</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Freight XP</td>
-                                        <td>52.81</td>
-                                        <td>Ja</td>
-                                        <td>7.9</td>
-                                        <td>10%</td>
-                                        <td>0</td>
-                                        <td>3.91</td>
-                                        <td>6.59</td>
-                                        <td>3.25</td>
-                                        <td><strong>79.74</strong></td>
-                                        <td>150</td>
-                                        <td>120</td>
-                                        <td>80</td>
-                                        <td>22</td>
-                                        <td>0</td>
-                                        <td>Ja</td>
-                                        <td>0</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Freight KT</td>
-                                        <td>39.58</td>
-                                        <td>Ja</td>
-                                        <td>7.9</td>
-                                        <td>9%</td>
-                                        <td>0</td>
-                                        <td>3.59</td>
-                                        <td>3.25</td>
-                                        <td>0</td>
-                                        <td><strong>57.88</strong></td>
-                                        <td>20</td>
-                                        <td>140</td>
-                                        <td>50</td>
-                                        <td>100</td>
-                                        <td>0</td>
-                                        <td>Nein</td>
-                                        <td>0</td>
-                                    </tr>
-                                    <tr>
-                                        <td>GEL HP bis 150 (HP)</td>
-                                        <td>57.79</td>
-                                        <td>Ja</td>
-                                        <td>7.9</td>
-                                        <td>0%</td>
-                                        <td>2.97</td>
-                                        <td>0</td>
-                                        <td>4</td>
-                                        <td>0</td>
-                                        <td><strong>72.66</strong></td>
-                                        <td>150</td>
-                                        <td>150</td>
-                                        <td>85</td>
-                                        <td>65</td>
-                                        <td>240</td>
-                                        <td>Ja</td>
-                                        <td>6000</td>
-                                    </tr>
-                                    <tr>
-                                        <td>GEL HP bis 200 (EP)</td>
-                                        <td>71.58</td>
-                                        <td>Ja</td>
-                                        <td>7.9</td>
-                                        <td>0%</td>
-                                        <td>6.59</td>
-                                        <td>0</td>
-                                        <td>4</td>
-                                        <td>0</td>
-                                        <td><strong>90.07</strong></td>
-                                        <td>200</td>
-                                        <td>200</td>
-                                        <td>120</td>
-                                        <td>80</td>
-                                        <td>240</td>
-                                        <td>Ja</td>
-                                        <td>6000</td>
-                                    </tr>
-                                    <tr>
-                                        <td>GEL HP 100 unpal.</td>
-                                        <td>73.07</td>
-                                        <td>Ja</td>
-                                        <td>7.9</td>
-                                        <td>0%</td>
-                                        <td>0</td>
-                                        <td>0</td>
-                                        <td>0</td>
-                                        <td>0</td>
-                                        <td><strong>80.97</strong></td>
-                                        <td>101</td>
-                                        <td>101</td>
-                                        <td>80</td>
-                                        <td>66</td>
-                                        <td>240</td>
-                                        <td>Ja</td>
-                                        <td>6000</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                    <p class="small-text">
+<div class="table-container locked" id="versandTable">
+<div class="scrollable compact-table">
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Grundpreis</th>
+<th>Versichert?</th>
+<th>Versicherung</th>
+<th>Treibstoff (%)</th>
+<th>Treibstoff (€)</th>
+<th>CO₂</th>
+<th>Palettenkosten</th>
+<th>Sonstige</th>
+<th>Gesamtpreis</th>
+<th>max. Gewicht</th>
+<th>max. Volumen</th>
+<th>max. L</th>
+<th>max. B</th>
+<th>max. H</th>
+<th>Palettiert?</th>
+<th>Divisor</th>
+</tr>
+</thead>
+<tbody><tr><td>DHL Paket</td><td>5.95</td><td>Nein</td><td>0</td><td>0%</td><td>0</td><td>0</td><td>0</td><td>0</td><td><strong>5.95</strong></td><td>31.5</td><td>0</td><td>120</td><td>60</td><td>60</td><td>Nein</td><td>0</td></tr><tr><td>Geis bis 15 kg</td><td>21</td><td>Ja</td><td>7.9</td><td>0%</td><td>0</td><td>0</td><td>6.9</td><td>0</td><td><strong>35.80</strong></td><td>15</td><td>50</td><td>250</td><td>40</td><td>40</td><td>Nein</td><td>0</td></tr><tr><td>Geis HP</td><td>33</td><td>Ja</td><td>7.9</td><td>0%</td><td>2.97</td><td>0</td><td>6.9</td><td>0</td><td><strong>50.77</strong></td><td>100</td><td>85</td><td>65</td><td>22</td><td>0</td><td>Ja</td><td>0</td></tr><tr><td>Geis XP</td><td>51.6</td><td>Ja</td><td>7.9</td><td>0%</td><td>6.59</td><td>0</td><td>6.9</td><td>0</td><td><strong>72.99</strong></td><td>1000</td><td>300</td><td>300</td><td>200</td><td>200</td><td>Ja</td><td>0</td></tr><tr><td>GEL HP 100 unpal.</td><td>73.07</td><td>Ja</td><td>7.9</td><td>0%</td><td>0</td><td>0</td><td>0</td><td>0</td><td><strong>80.97</strong></td><td>101</td><td>101</td><td>80</td><td>66</td><td>240</td><td>Ja</td><td>6000</td></tr><tr><td>GEL HP NEU</td><td>35.9</td><td>Ja</td><td>10</td><td>0%</td><td>4.31</td><td>0</td><td>0</td><td>0</td><td><strong>50.21</strong></td><td>59</td><td>0</td><td>80</td><td>65</td><td>150</td><td>Nein</td><td>0</td></tr><tr><td>GEL HP Pal NEU</td><td>44.6</td><td>Ja</td><td>10</td><td>0%</td><td>5.35</td><td>0</td><td>3.8</td><td>0</td><td><strong>63.75</strong></td><td>150</td><td>0</td><td>80</td><td>60</td><td>250</td><td>Nein</td><td>5000</td></tr><tr><td>GEL FP NEU</td><td>44.6</td><td>Ja</td><td>10</td><td>0%</td><td>5.35</td><td>0</td><td>0</td><td>0</td><td><strong>59.95</strong></td><td>150</td><td>0</td><td>80</td><td>60</td><td>250</td><td>Nein</td><td>5000</td></tr><tr><td>GEL FP SIde by Side</td><td>63.8</td><td>Ja</td><td>10</td><td>0%</td><td>7.66</td><td>0</td><td>0</td><td>0</td><td><strong>81.46</strong></td><td>150</td><td>0</td><td>80</td><td>60</td><td>250</td><td>Nein</td><td>5000</td></tr><tr><td>GEL Karton</td><td>30</td><td>Ja</td><td>10</td><td>0%</td><td>3</td><td>0</td><td>0</td><td>0</td><td><strong>43.00</strong></td><td>30</td><td>0</td><td>80</td><td>60</td><td>250</td><td>Nein</td><td>5000</td></tr></tbody>
+</table>
+</div>
+</div>
+<p class="small-text">
                         Maße/Gewicht = Grenzen, Divisor = Volumengewicht.
                     </p>
-                </div>
-            </div>
-
-            <!-- TAB 3: ADMIN -->
-            <div class="tab-content" data-tab-content="3" style="display: none;">
-                <h2>Admin</h2>
-
-                <!-- Import/Export Section -->
-                <div class="card">
-                    <h3>Daten Import/Export & Speicherung</h3>
-
-                    <!-- NEW: File System Access API Section -->
-                    <div class="import-export-section" style="background: #e8f5e9; border-color: #c8e6c9;">
-                        <h4 style="color: #2e7d32;">📁 Lokale Datei-Speicherung (Empfohlen)</h4>
-                        <p class="small-text" style="margin-bottom: 12px;">
+</div>
+</div>
+<!-- TAB 3: ADMIN -->
+<div class="tab-content" data-tab-content="3" style="display: none;">
+<h2>Admin</h2>
+<!-- Import/Export Section -->
+<div class="card">
+<h3>Daten Import/Export &amp; Speicherung</h3>
+<!-- NEW: File System Access API Section -->
+<div class="import-export-section" style="background: #e8f5e9; border-color: #c8e6c9;">
+<h4 style="color: #2e7d32;">📁 Lokale Datei-Speicherung (Empfohlen)</h4>
+<p class="small-text" style="margin-bottom: 12px;">
                             Speichere deine Daten direkt in einer Datei auf deinem Computer.
                             So gehen sie nicht verloren, wenn du Browserdaten löschst.
                         </p>
-
-                        <div class="import-export-buttons">
-                            <button class="btn" type="button" onclick="fsOpen()">
-                                <span class="icon">📂</span> Datei öffnen
+<div class="import-export-buttons">
+<button class="btn" onclick="fsOpen()" type="button">
+<span class="icon">📂</span> Datei öffnen
                             </button>
-                            <button class="btn" type="button" id="btnFsSave" onclick="fsSave()" disabled
-                                style="opacity: 0.5;">
-                                <span class="icon">💾</span> Speichern
+<button class="btn" disabled="" id="btnFsSave" onclick="fsSave()" style="opacity: 0.5;" type="button">
+<span class="icon">💾</span> Speichern
                             </button>
-                            <button class="btn secondary" type="button" onclick="fsSaveAs()">
-                                <span class="icon">💾</span> Speichern unter...
+<button class="btn secondary" onclick="fsSaveAs()" type="button">
+<span class="icon">💾</span> Speichern unter...
                             </button>
-                        </div>
-                        <div id="fsStatus" style="margin-top: 8px; font-size: 0.85em; color: #666;">
+</div>
+<div id="fsStatus" style="margin-top: 8px; font-size: 0.85em; color: #666;">
                             Keine Datei geöffnet.
                         </div>
-                    </div>
-
-                    <div class="import-export-section">
-                        <h4>Klassischer Import/Export</h4>
-                        <div class="import-export-buttons">
-                            <button class="btn" type="button" onclick="exportData('maerkte')">Marktplätze
+</div>
+<div class="import-export-section">
+<h4>Klassischer Import/Export</h4>
+<div class="import-export-buttons">
+<button class="btn" onclick="exportData('maerkte')" type="button">Marktplätze
                                 exportieren</button>
-                            <button class="btn" type="button" onclick="exportData('kategorien')">Kategorien
+<button class="btn" onclick="exportData('kategorien')" type="button">Kategorien
                                 exportieren</button>
-                            <button class="btn" type="button" onclick="exportData('versand')">Versandtarife
+<button class="btn" onclick="exportData('versand')" type="button">Versandtarife
                                 exportieren</button>
-                            <button class="btn secondary" type="button" onclick="exportData('all')">Alle Daten
+<button class="btn secondary" onclick="exportData('all')" type="button">Alle Daten
                                 exportieren</button>
-                        </div>
-                    </div>
-
-                    <div class="import-export-section">
-                        <h4>Daten importieren (Klassisch)</h4>
-                        <div class="import-export-buttons">
-                            <button class="btn" type="button" onclick="importData('maerkte')">Marktplätze
+</div>
+</div>
+<div class="import-export-section">
+<h4>Daten importieren (Klassisch)</h4>
+<div class="import-export-buttons">
+<button class="btn" onclick="importData('maerkte')" type="button">Marktplätze
                                 importieren</button>
-                            <button class="btn" type="button" onclick="importData('kategorien')">Kategorien
+<button class="btn" onclick="importData('kategorien')" type="button">Kategorien
                                 importieren</button>
-                            <button class="btn" type="button" onclick="importData('versand')">Versandtarife
+<button class="btn" onclick="importData('versand')" type="button">Versandtarife
                                 importieren</button>
-                            <button class="btn secondary" type="button" onclick="importData('all')">Alle Daten
+<button class="btn secondary" onclick="importData('all')" type="button">Alle Daten
                                 importieren</button>
-                        </div>
-                        <p class="small-text" style="margin-top: 8px;">
+</div>
+<p class="small-text" style="margin-top: 8px;">
                             Hinweis: Beim Import werden vorhandene Daten überschrieben. Bitte vorher exportieren!
                         </p>
-                    </div>
-                </div>
-
-                <div class="admin-grid">
-                    <div class="card">
-                        <h3>Märkte verwalten</h3>
-                        <div class="form-grid">
-                            <div class="form-group">
-                                <label>Marktname</label>
-                                <input id="adminMarktName" type="text" placeholder="z.B. NeuePlattform">
-                            </div>
-                            <div class="form-group">
-                                <label>Standard-Provision (%)</label>
-                                <input id="adminMarktProv" type="number" value="10" step="0.1">
-                            </div>
-                            <div class="form-group">
-                                <label>Ist eBay-ähnlich?</label>
-                                <div style="display:flex;align-items:center;gap:8px;">
-                                    <input id="adminMarktEbay" type="checkbox"><span>eBay-Struktur (max/over/fix)</span>
-                                </div>
-                            </div>
-                        </div>
-                        <button class="btn small" type="button" onclick="adminAddMarkt()">Markt hinzufügen</button>
-
-                        <div class="admin-table">
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th>Name</th>
-                                        <th>Typ</th>
-                                        <th>Standard-Provision</th>
-                                        <th>Aktion</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="adminMarketsBody">
-                                    <tr>
-                                        <td>eBay</td>
-                                        <td>eBay-Struktur</td>
-                                        <td>-</td>
-                                        <td><button class="btn small secondary" type="button"
-                                                onclick="adminDeleteMarkt(0)">Löschen</button></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Check24</td>
-                                        <td>Standard</td>
-                                        <td>0.00 %</td>
-                                        <td><button class="btn small secondary" type="button"
-                                                onclick="adminDeleteMarkt(1)">Löschen</button></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Kaufland</td>
-                                        <td>Standard</td>
-                                        <td>0.00 %</td>
-                                        <td><button class="btn small secondary" type="button"
-                                                onclick="adminDeleteMarkt(2)">Löschen</button></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Amazon</td>
-                                        <td>Standard</td>
-                                        <td>0.00 %</td>
-                                        <td><button class="btn small secondary" type="button"
-                                                onclick="adminDeleteMarkt(3)">Löschen</button></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Metro</td>
-                                        <td>Standard</td>
-                                        <td>0.00 %</td>
-                                        <td><button class="btn small secondary" type="button"
-                                                onclick="adminDeleteMarkt(4)">Löschen</button></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Hood</td>
-                                        <td>Standard</td>
-                                        <td>0.00 %</td>
-                                        <td><button class="btn small secondary" type="button"
-                                                onclick="adminDeleteMarkt(5)">Löschen</button></td>
-                                    </tr>
-                                    <tr>
-                                        <td>OTTO</td>
-                                        <td>Standard</td>
-                                        <td>0.00 %</td>
-                                        <td><button class="btn small secondary" type="button"
-                                                onclick="adminDeleteMarkt(6)">Löschen</button></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-
-                    <div class="card">
-                        <h3>Kategorien verwalten</h3>
-                        <div class="form-grid">
-                            <div class="form-group">
-                                <label>Kategoriename</label>
-                                <input id="adminKatName" type="text" placeholder="z.B. Neue Kategorie">
-                            </div>
-                            <div class="form-group">
-                                <label>Vorlage (optional)</label>
-                                <select id="adminKatTemplate">
-                                    <option value="" selected="selected">– keine Vorlage –</option>
-                                    <option value="Haushaltsgeräte">Haushaltsgeräte</option>
-                                    <option value="Haushaltsgeräte klein">Haushaltsgeräte klein</option>
-                                    <option value="Heimwerker">Heimwerker</option>
-                                    <option value="Garten &amp; Terrasse">Garten &amp; Terrasse</option>
-                                    <option value="TV, Video &amp; Audio">TV, Video &amp; Audio</option>
-                                    <option value="Computer, Tablets &amp; Netzwerk">Computer, Tablets &amp; Netzwerk
+</div>
+</div>
+<div class="admin-grid">
+<div class="card">
+<h3>Märkte verwalten</h3>
+<div class="form-grid">
+<div class="form-group">
+<label>Marktname</label>
+<input id="adminMarktName" placeholder="z.B. NeuePlattform" type="text"/>
+</div>
+<div class="form-group">
+<label>Standard-Provision (%)</label>
+<input id="adminMarktProv" step="0.1" type="number" value="10"/>
+</div>
+<div class="form-group">
+<label>Ist eBay-ähnlich?</label>
+<div style="display:flex;align-items:center;gap:8px;">
+<input id="adminMarktEbay" type="checkbox"/><span>eBay-Struktur (max/over/fix)</span>
+</div>
+</div>
+</div>
+<button class="btn small" onclick="adminAddMarkt()" type="button">Markt hinzufügen</button>
+<div class="admin-table">
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Typ</th>
+<th>Standard-Provision</th>
+<th>Aktion</th>
+</tr>
+</thead>
+<tbody id="adminMarketsBody">
+<tr>
+<td>eBay</td>
+<td>eBay-Struktur</td>
+<td>-</td>
+<td><button class="btn small secondary" onclick="adminDeleteMarkt(0)" type="button">Löschen</button></td>
+</tr>
+<tr>
+<td>Check24</td>
+<td>Standard</td>
+<td>0.00 %</td>
+<td><button class="btn small secondary" onclick="adminDeleteMarkt(1)" type="button">Löschen</button></td>
+</tr>
+<tr>
+<td>Kaufland</td>
+<td>Standard</td>
+<td>0.00 %</td>
+<td><button class="btn small secondary" onclick="adminDeleteMarkt(2)" type="button">Löschen</button></td>
+</tr>
+<tr>
+<td>Amazon</td>
+<td>Standard</td>
+<td>0.00 %</td>
+<td><button class="btn small secondary" onclick="adminDeleteMarkt(3)" type="button">Löschen</button></td>
+</tr>
+<tr>
+<td>Metro</td>
+<td>Standard</td>
+<td>0.00 %</td>
+<td><button class="btn small secondary" onclick="adminDeleteMarkt(4)" type="button">Löschen</button></td>
+</tr>
+<tr>
+<td>Hood</td>
+<td>Standard</td>
+<td>0.00 %</td>
+<td><button class="btn small secondary" onclick="adminDeleteMarkt(5)" type="button">Löschen</button></td>
+</tr>
+<tr>
+<td>OTTO</td>
+<td>Standard</td>
+<td>0.00 %</td>
+<td><button class="btn small secondary" onclick="adminDeleteMarkt(6)" type="button">Löschen</button></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="card">
+<h3>Kategorien verwalten</h3>
+<div class="form-grid">
+<div class="form-group">
+<label>Kategoriename</label>
+<input id="adminKatName" placeholder="z.B. Neue Kategorie" type="text"/>
+</div>
+<div class="form-group">
+<label>Vorlage (optional)</label>
+<select id="adminKatTemplate">
+<option selected="selected" value="">– keine Vorlage –</option>
+<option value="Haushaltsgeräte">Haushaltsgeräte</option>
+<option value="Haushaltsgeräte klein">Haushaltsgeräte klein</option>
+<option value="Heimwerker">Heimwerker</option>
+<option value="Garten &amp; Terrasse">Garten &amp; Terrasse</option>
+<option value="TV, Video &amp; Audio">TV, Video &amp; Audio</option>
+<option value="Computer, Tablets &amp; Netzwerk">Computer, Tablets &amp; Netzwerk
                                     </option>
-                                    <option value="Antiquitäten &amp; Kunst">Antiquitäten &amp; Kunst</option>
-                                    <option value="Baby">Baby</option>
-                                    <option value="Beauty &amp; Gesundheit">Beauty &amp; Gesundheit</option>
-                                    <option value="Möbel &amp; Wohnen">Möbel &amp; Wohnen</option>
-                                    <option value="Test">Test</option>
-                                </select>
-                            </div>
-                        </div>
-                        <button class="btn small" type="button" onclick="adminAddKategorie()">Kategorie
+<option value="Antiquitäten &amp; Kunst">Antiquitäten &amp; Kunst</option>
+<option value="Baby">Baby</option>
+<option value="Beauty &amp; Gesundheit">Beauty &amp; Gesundheit</option>
+<option value="Möbel &amp; Wohnen">Möbel &amp; Wohnen</option>
+<option value="Test">Test</option>
+</select>
+</div>
+</div>
+<button class="btn small" onclick="adminAddKategorie()" type="button">Kategorie
                             hinzufügen</button>
-
-                        <div class="admin-table" style="margin-top:8px;">
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th>Name</th>
-                                        <th>Vorhandene Markt-Schlüssel</th>
-                                        <th>Aktion</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="adminKatBody">
-                                    <tr>
-                                        <td>Haushaltsgeräte</td>
-                                        <td>ebay, max, over, ebayId, check24, kaufland, amazon, metro, hood, otto</td>
-                                        <td><button class="btn small secondary" type="button"
-                                                onclick="adminDeleteKategorie('Haushaltsgeräte')">Löschen</button></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Haushaltsgeräte klein</td>
-                                        <td>ebay, max, over, ebayId, check24, kaufland, amazon, metro, hood, otto</td>
-                                        <td><button class="btn small secondary" type="button"
-                                                onclick="adminDeleteKategorie('Haushaltsgeräte klein')">Löschen</button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Heimwerker</td>
-                                        <td>ebay, max, over, ebayId, check24, kaufland, amazon, metro, hood, otto</td>
-                                        <td><button class="btn small secondary" type="button"
-                                                onclick="adminDeleteKategorie('Heimwerker')">Löschen</button></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Garten &amp; Terrasse</td>
-                                        <td>ebay, max, over, ebayId, check24, kaufland, amazon, metro, hood, otto</td>
-                                        <td><button class="btn small secondary" type="button"
-                                                onclick="adminDeleteKategorie('Garten &amp; Terrasse')">Löschen</button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>TV, Video &amp; Audio</td>
-                                        <td>ebay, max, over, ebayId, check24, kaufland, amazon, metro, hood, otto</td>
-                                        <td><button class="btn small secondary" type="button"
-                                                onclick="adminDeleteKategorie('TV, Video &amp; Audio')">Löschen</button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Computer, Tablets &amp; Netzwerk</td>
-                                        <td>ebay, max, over, ebayId, check24, kaufland, amazon, metro, hood, otto</td>
-                                        <td><button class="btn small secondary" type="button"
-                                                onclick="adminDeleteKategorie('Computer, Tablets &amp; Netzwerk')">Löschen</button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Antiquitäten &amp; Kunst</td>
-                                        <td>ebay, max, over, ebayId</td>
-                                        <td><button class="btn small secondary" type="button"
-                                                onclick="adminDeleteKategorie('Antiquitäten &amp; Kunst')">Löschen</button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Baby</td>
-                                        <td>ebay, max, over, ebayId</td>
-                                        <td><button class="btn small secondary" type="button"
-                                                onclick="adminDeleteKategorie('Baby')">Löschen</button></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Beauty &amp; Gesundheit</td>
-                                        <td>ebay, max, over, ebayId, check24</td>
-                                        <td><button class="btn small secondary" type="button"
-                                                onclick="adminDeleteKategorie('Beauty &amp; Gesundheit')">Löschen</button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Möbel &amp; Wohnen</td>
-                                        <td>ebay, max, over, ebayId</td>
-                                        <td><button class="btn small secondary" type="button"
-                                                onclick="adminDeleteKategorie('Möbel &amp; Wohnen')">Löschen</button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Test</td>
-                                        <td>ebay, max, over, ebayId, check24, kaufland, amazon, metro, hood, otto</td>
-                                        <td><button class="btn small secondary" type="button"
-                                                onclick="adminDeleteKategorie('Test')">Löschen</button></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-
-                    <div class="card">
-                        <h3>Versandtarife verwalten</h3>
-                        <div class="form-grid">
-                            <div class="form-group">
-                                <label>Name</label>
-                                <input id="adminVersandName" type="text" placeholder="z.B. DHL XL">
-                            </div>
-                            <div class="form-group">
-                                <label>Grundpreis (€)</label>
-                                <input id="adminVersandPreis" type="number" step="0.01" value="9.99">
-                            </div>
-                            <div class="form-group">
-                                <label>max. Gewicht (kg)</label>
-                                <input id="adminVersandGewicht" type="number" step="0.1" value="31.5">
-                            </div>
-                            <div class="form-group">
-                                <label>max. L (cm)</label>
-                                <input id="adminVersandL" type="number" value="120">
-                            </div>
-                            <div class="form-group">
-                                <label>max. B (cm)</label>
-                                <input id="adminVersandB" type="number" value="60">
-                            </div>
-                            <div class="form-group">
-                                <label>max. H (cm)</label>
-                                <input id="adminVersandH" type="number" value="60">
-                            </div>
-                        </div>
-                        <button class="btn small" type="button" onclick="adminAddVersand()">Versandtarif
+<div class="admin-table" style="margin-top:8px;">
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Vorhandene Markt-Schlüssel</th>
+<th>Aktion</th>
+</tr>
+</thead>
+<tbody id="adminKatBody">
+<tr>
+<td>Haushaltsgeräte</td>
+<td>ebay, max, over, ebayId, check24, kaufland, amazon, metro, hood, otto</td>
+<td><button class="btn small secondary" onclick="adminDeleteKategorie('Haushaltsgeräte')" type="button">Löschen</button></td>
+</tr>
+<tr>
+<td>Haushaltsgeräte klein</td>
+<td>ebay, max, over, ebayId, check24, kaufland, amazon, metro, hood, otto</td>
+<td><button class="btn small secondary" onclick="adminDeleteKategorie('Haushaltsgeräte klein')" type="button">Löschen</button>
+</td>
+</tr>
+<tr>
+<td>Heimwerker</td>
+<td>ebay, max, over, ebayId, check24, kaufland, amazon, metro, hood, otto</td>
+<td><button class="btn small secondary" onclick="adminDeleteKategorie('Heimwerker')" type="button">Löschen</button></td>
+</tr>
+<tr>
+<td>Garten &amp; Terrasse</td>
+<td>ebay, max, over, ebayId, check24, kaufland, amazon, metro, hood, otto</td>
+<td><button class="btn small secondary" onclick="adminDeleteKategorie('Garten &amp; Terrasse')" type="button">Löschen</button>
+</td>
+</tr>
+<tr>
+<td>TV, Video &amp; Audio</td>
+<td>ebay, max, over, ebayId, check24, kaufland, amazon, metro, hood, otto</td>
+<td><button class="btn small secondary" onclick="adminDeleteKategorie('TV, Video &amp; Audio')" type="button">Löschen</button>
+</td>
+</tr>
+<tr>
+<td>Computer, Tablets &amp; Netzwerk</td>
+<td>ebay, max, over, ebayId, check24, kaufland, amazon, metro, hood, otto</td>
+<td><button class="btn small secondary" onclick="adminDeleteKategorie('Computer, Tablets &amp; Netzwerk')" type="button">Löschen</button>
+</td>
+</tr>
+<tr>
+<td>Antiquitäten &amp; Kunst</td>
+<td>ebay, max, over, ebayId</td>
+<td><button class="btn small secondary" onclick="adminDeleteKategorie('Antiquitäten &amp; Kunst')" type="button">Löschen</button>
+</td>
+</tr>
+<tr>
+<td>Baby</td>
+<td>ebay, max, over, ebayId</td>
+<td><button class="btn small secondary" onclick="adminDeleteKategorie('Baby')" type="button">Löschen</button></td>
+</tr>
+<tr>
+<td>Beauty &amp; Gesundheit</td>
+<td>ebay, max, over, ebayId, check24</td>
+<td><button class="btn small secondary" onclick="adminDeleteKategorie('Beauty &amp; Gesundheit')" type="button">Löschen</button>
+</td>
+</tr>
+<tr>
+<td>Möbel &amp; Wohnen</td>
+<td>ebay, max, over, ebayId</td>
+<td><button class="btn small secondary" onclick="adminDeleteKategorie('Möbel &amp; Wohnen')" type="button">Löschen</button>
+</td>
+</tr>
+<tr>
+<td>Test</td>
+<td>ebay, max, over, ebayId, check24, kaufland, amazon, metro, hood, otto</td>
+<td><button class="btn small secondary" onclick="adminDeleteKategorie('Test')" type="button">Löschen</button></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="card">
+<h3>Versandtarife verwalten</h3>
+<div class="form-grid">
+<div class="form-group">
+<label>Name</label>
+<input id="adminVersandName" placeholder="z.B. DHL XL" type="text"/>
+</div>
+<div class="form-group">
+<label>Grundpreis (€)</label>
+<input id="adminVersandPreis" step="0.01" type="number" value="9.99"/>
+</div>
+<div class="form-group">
+<label>max. Gewicht (kg)</label>
+<input id="adminVersandGewicht" step="0.1" type="number" value="31.5"/>
+</div>
+<div class="form-group">
+<label>max. L (cm)</label>
+<input id="adminVersandL" type="number" value="120"/>
+</div>
+<div class="form-group">
+<label>max. B (cm)</label>
+<input id="adminVersandB" type="number" value="60"/>
+</div>
+<div class="form-group">
+<label>max. H (cm)</label>
+<input id="adminVersandH" type="number" value="60"/>
+</div>
+</div>
+<button class="btn small" onclick="adminAddVersand()" type="button">Versandtarif
                             hinzufügen</button>
-
-                        <div class="admin-table" style="margin-top:8px;">
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th>Name</th>
-                                        <th>Grundpreis</th>
-                                        <th>max. Gewicht</th>
-                                        <th>Maße (L/B/H)</th>
-                                        <th>Aktion</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="adminVersandBody">
-                                    <tr>
-                                        <td>DHL Paket</td>
-                                        <td>5.95 €</td>
-                                        <td>31.5 kg</td>
-                                        <td>120 / 60 / 60</td>
-                                        <td><button class="btn small secondary" type="button"
-                                                onclick="adminDeleteVersand(0)">Löschen</button></td>
-                                    </tr>
-                                    <tr>
-                                        <td>GEL HP bis 100</td>
-                                        <td>44.85 €</td>
-                                        <td>101 kg</td>
-                                        <td>80 / 66 / 240</td>
-                                        <td><button class="btn small secondary" type="button"
-                                                onclick="adminDeleteVersand(1)">Löschen</button></td>
-                                    </tr>
-                                    <tr>
-                                        <td>GEL 90</td>
-                                        <td>68.56 €</td>
-                                        <td>60 kg</td>
-                                        <td>320 / 120 / 225</td>
-                                        <td><button class="btn small secondary" type="button"
-                                                onclick="adminDeleteVersand(2)">Löschen</button></td>
-                                    </tr>
-                                    <tr>
-                                        <td>GEL 80</td>
-                                        <td>63.28 €</td>
-                                        <td>60 kg</td>
-                                        <td>320 / 120 / 225</td>
-                                        <td><button class="btn small secondary" type="button"
-                                                onclick="adminDeleteVersand(3)">Löschen</button></td>
-                                    </tr>
-                                    <tr>
-                                        <td>GEL 70</td>
-                                        <td>58.01 €</td>
-                                        <td>60 kg</td>
-                                        <td>320 / 120 / 225</td>
-                                        <td><button class="btn small secondary" type="button"
-                                                onclick="adminDeleteVersand(4)">Löschen</button></td>
-                                    </tr>
-                                    <tr>
-                                        <td>GEL 60</td>
-                                        <td>51.89 €</td>
-                                        <td>60 kg</td>
-                                        <td>320 / 120 / 225</td>
-                                        <td><button class="btn small secondary" type="button"
-                                                onclick="adminDeleteVersand(5)">Löschen</button></td>
-                                    </tr>
-                                    <tr>
-                                        <td>GEL 50</td>
-                                        <td>45.01 €</td>
-                                        <td>50 kg</td>
-                                        <td>320 / 120 / 225</td>
-                                        <td><button class="btn small secondary" type="button"
-                                                onclick="adminDeleteVersand(6)">Löschen</button></td>
-                                    </tr>
-                                    <tr>
-                                        <td>GEL 40</td>
-                                        <td>36.99 €</td>
-                                        <td>40 kg</td>
-                                        <td>320 / 120 / 225</td>
-                                        <td><button class="btn small secondary" type="button"
-                                                onclick="adminDeleteVersand(7)">Löschen</button></td>
-                                    </tr>
-                                    <tr>
-                                        <td>GEL 30</td>
-                                        <td>33.78 €</td>
-                                        <td>30 kg</td>
-                                        <td>320 / 120 / 225</td>
-                                        <td><button class="btn small secondary" type="button"
-                                                onclick="adminDeleteVersand(8)">Löschen</button></td>
-                                    </tr>
-                                    <tr>
-                                        <td>GEL 20</td>
-                                        <td>26.60 €</td>
-                                        <td>20 kg</td>
-                                        <td>320 / 120 / 225</td>
-                                        <td><button class="btn small secondary" type="button"
-                                                onclick="adminDeleteVersand(9)">Löschen</button></td>
-                                    </tr>
-                                    <tr>
-                                        <td>GEL 10</td>
-                                        <td>19.72 €</td>
-                                        <td>10 kg</td>
-                                        <td>320 / 120 / 225</td>
-                                        <td><button class="btn small secondary" type="button"
-                                                onclick="adminDeleteVersand(10)">Löschen</button></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Geis bis 15 kg</td>
-                                        <td>21.00 €</td>
-                                        <td>15 kg</td>
-                                        <td>250 / 40 / 40</td>
-                                        <td><button class="btn small secondary" type="button"
-                                                onclick="adminDeleteVersand(11)">Löschen</button></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Geis HP</td>
-                                        <td>33.00 €</td>
-                                        <td>100 kg</td>
-                                        <td>65 / 22 / 0</td>
-                                        <td><button class="btn small secondary" type="button"
-                                                onclick="adminDeleteVersand(12)">Löschen</button></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Geis XP</td>
-                                        <td>51.60 €</td>
-                                        <td>1000 kg</td>
-                                        <td>300 / 200 / 200</td>
-                                        <td><button class="btn small secondary" type="button"
-                                                onclick="adminDeleteVersand(13)">Löschen</button></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Freight HP</td>
-                                        <td>39.58 €</td>
-                                        <td>80 kg</td>
-                                        <td>65 / 240 / 0</td>
-                                        <td><button class="btn small secondary" type="button"
-                                                onclick="adminDeleteVersand(14)">Löschen</button></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Freight XP</td>
-                                        <td>52.81 €</td>
-                                        <td>150 kg</td>
-                                        <td>80 / 22 / 0</td>
-                                        <td><button class="btn small secondary" type="button"
-                                                onclick="adminDeleteVersand(15)">Löschen</button></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Freight KT</td>
-                                        <td>39.58 €</td>
-                                        <td>20 kg</td>
-                                        <td>50 / 100 / 0</td>
-                                        <td><button class="btn small secondary" type="button"
-                                                onclick="adminDeleteVersand(16)">Löschen</button></td>
-                                    </tr>
-                                    <tr>
-                                        <td>GEL HP bis 150 (HP)</td>
-                                        <td>57.79 €</td>
-                                        <td>150 kg</td>
-                                        <td>85 / 65 / 240</td>
-                                        <td><button class="btn small secondary" type="button"
-                                                onclick="adminDeleteVersand(17)">Löschen</button></td>
-                                    </tr>
-                                    <tr>
-                                        <td>GEL HP bis 200 (EP)</td>
-                                        <td>71.58 €</td>
-                                        <td>200 kg</td>
-                                        <td>120 / 80 / 240</td>
-                                        <td><button class="btn small secondary" type="button"
-                                                onclick="adminDeleteVersand(18)">Löschen</button></td>
-                                    </tr>
-                                    <tr>
-                                        <td>GEL HP 100 unpal.</td>
-                                        <td>73.07 €</td>
-                                        <td>101 kg</td>
-                                        <td>80 / 66 / 240</td>
-                                        <td><button class="btn small secondary" type="button"
-                                                onclick="adminDeleteVersand(19)">Löschen</button></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div> <!-- /Admin -->
-        </div>
-    </div>
-
-    <script>
+<div class="admin-table" style="margin-top:8px;">
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Grundpreis</th>
+<th>max. Gewicht</th>
+<th>Maße (L/B/H)</th>
+<th>Aktion</th>
+</tr>
+</thead>
+<tbody id="adminVersandBody"><tr><td>DHL Paket</td><td>5.95 €</td><td>31.5 kg</td><td>120 / 60 / 60</td><td><button class="btn small secondary" onclick="adminDeleteVersand(0)" type="button">Löschen</button></td></tr><tr><td>Geis bis 15 kg</td><td>21.00 €</td><td>15 kg</td><td>250 / 40 / 40</td><td><button class="btn small secondary" onclick="adminDeleteVersand(1)" type="button">Löschen</button></td></tr><tr><td>Geis HP</td><td>33.00 €</td><td>100 kg</td><td>65 / 22 / 0</td><td><button class="btn small secondary" onclick="adminDeleteVersand(2)" type="button">Löschen</button></td></tr><tr><td>Geis XP</td><td>51.60 €</td><td>1000 kg</td><td>300 / 200 / 200</td><td><button class="btn small secondary" onclick="adminDeleteVersand(3)" type="button">Löschen</button></td></tr><tr><td>GEL HP 100 unpal.</td><td>73.07 €</td><td>101 kg</td><td>80 / 66 / 240</td><td><button class="btn small secondary" onclick="adminDeleteVersand(4)" type="button">Löschen</button></td></tr><tr><td>GEL HP NEU</td><td>35.90 €</td><td>59 kg</td><td>80 / 65 / 150</td><td><button class="btn small secondary" onclick="adminDeleteVersand(5)" type="button">Löschen</button></td></tr><tr><td>GEL HP Pal NEU</td><td>44.60 €</td><td>150 kg</td><td>80 / 60 / 250</td><td><button class="btn small secondary" onclick="adminDeleteVersand(6)" type="button">Löschen</button></td></tr><tr><td>GEL FP NEU</td><td>44.60 €</td><td>150 kg</td><td>80 / 60 / 250</td><td><button class="btn small secondary" onclick="adminDeleteVersand(7)" type="button">Löschen</button></td></tr><tr><td>GEL FP SIde by Side</td><td>63.80 €</td><td>150 kg</td><td>80 / 60 / 250</td><td><button class="btn small secondary" onclick="adminDeleteVersand(8)" type="button">Löschen</button></td></tr><tr><td>GEL Karton</td><td>30.00 €</td><td>30 kg</td><td>80 / 60 / 250</td><td><button class="btn small secondary" onclick="adminDeleteVersand(9)" type="button">Löschen</button></td></tr></tbody>
+</table>
+</div>
+</div>
+</div>
+</div> <!-- /Admin -->
+</div>
+</div>
+<script>
         let locked = { provTable: true, versandTable: true };
         let favoritMarkt = localStorage.getItem('favoritMarkt') || "eBay";
         let selectedKat = localStorage.getItem('selectedKat') || "";
         let nurVersichert = false;
         let selectedVersandTarif = localStorage.getItem('selectedVersandTarif') || "auto";
+        const VERSAND_DATEN_VERSION = "2026-08-06-neue-tarife-v1";
 
-        // Standard-Versandtarife - werden geladen, wenn keine in localStorage vorhanden sind
+        // Standard-Versandtarife aus gebuehrenrechner-daten 06082026
         const defaultVersand = [
-            { name: "DHL Paket", grundpreis: 5.95, versichert: false, versicherung: 0, treibstoff_prozent: 0, treibstoff_euro: 0, co2: 0, palettenkosten: 0, sonstige: 0, preis: 0, gewicht: 31.5, volumen: 0, l: 120, b: 60, h: 60, palettiert: false, divisor: 0 },
-            { name: "GEL HP bis 100", grundpreis: 44.85, versichert: true, versicherung: 7.9, treibstoff_prozent: 0, treibstoff_euro: 4, co2: 0, palettenkosten: 0, sonstige: 0, preis: 0, gewicht: 101, volumen: 101, l: 80, b: 66, h: 240, palettiert: false, divisor: 6000 },
-            { name: "GEL 90", grundpreis: 68.56, versichert: true, versicherung: 7.9, treibstoff_prozent: 0, treibstoff_euro: 4, co2: 0, palettenkosten: 0, sonstige: 0, preis: 0, gewicht: 60, volumen: 90, l: 320, b: 120, h: 225, palettiert: false, divisor: 6000 },
-            { name: "GEL 80", grundpreis: 63.28, versichert: true, versicherung: 7.9, treibstoff_prozent: 0, treibstoff_euro: 4, co2: 0, palettenkosten: 0, sonstige: 0, preis: 0, gewicht: 60, volumen: 80, l: 320, b: 120, h: 225, palettiert: false, divisor: 6000 },
-            { name: "GEL 70", grundpreis: 58.01, versichert: true, versicherung: 7.9, treibstoff_prozent: 0, treibstoff_euro: 4, co2: 0, palettenkosten: 0, sonstige: 0, preis: 0, gewicht: 60, volumen: 70, l: 320, b: 120, h: 225, palettiert: false, divisor: 6000 },
-            { name: "GEL 60", grundpreis: 51.89, versichert: true, versicherung: 7.9, treibstoff_prozent: 0, treibstoff_euro: 4, co2: 0, palettenkosten: 0, sonstige: 0, preis: 0, gewicht: 60, volumen: 60, l: 320, b: 120, h: 225, palettiert: false, divisor: 6000 },
-            { name: "GEL 50", grundpreis: 45.01, versichert: true, versicherung: 7.9, treibstoff_prozent: 0, treibstoff_euro: 0, co2: 0, palettenkosten: 4, sonstige: 0, preis: 0, gewicht: 50, volumen: 50, l: 320, b: 120, h: 225, palettiert: false, divisor: 6000 },
-            { name: "GEL 40", grundpreis: 36.99, versichert: true, versicherung: 7.9, treibstoff_prozent: 0, treibstoff_euro: 0, co2: 0, palettenkosten: 4, sonstige: 0, preis: 0, gewicht: 40, volumen: 40, l: 320, b: 120, h: 225, palettiert: false, divisor: 6000 },
-            { name: "GEL 30", grundpreis: 33.78, versichert: true, versicherung: 7.9, treibstoff_prozent: 0, treibstoff_euro: 0, co2: 0, palettenkosten: 4, sonstige: 0, preis: 0, gewicht: 30, volumen: 30, l: 320, b: 120, h: 225, palettiert: false, divisor: 6000 },
-            { name: "GEL 20", grundpreis: 26.6, versichert: true, versicherung: 7.9, treibstoff_prozent: 0, treibstoff_euro: 0, co2: 0, palettenkosten: 4, sonstige: 0, preis: 0, gewicht: 20, volumen: 20, l: 320, b: 120, h: 225, palettiert: false, divisor: 6000 },
-            { name: "GEL 10", grundpreis: 19.72, versichert: true, versicherung: 7.9, treibstoff_prozent: 0, treibstoff_euro: 0, co2: 0, palettenkosten: 4, sonstige: 0, preis: 0, gewicht: 10, volumen: 10, l: 320, b: 120, h: 225, palettiert: false, divisor: 6000 },
-            { name: "Geis bis 15 kg", grundpreis: 21, versichert: true, versicherung: 7.9, treibstoff_prozent: 0, treibstoff_euro: 0, co2: 0, palettenkosten: 6.9, sonstige: 0, preis: 0, gewicht: 15, volumen: 50, l: 250, b: 40, h: 40, palettiert: false, divisor: 0 },
-            { name: "Geis HP", grundpreis: 33, versichert: true, versicherung: 7.9, treibstoff_prozent: 0, treibstoff_euro: 2.97, co2: 0, palettenkosten: 6.9, sonstige: 0, preis: 0, gewicht: 100, volumen: 85, l: 65, b: 22, h: 0, palettiert: true, divisor: 0 },
-            { name: "Geis XP", grundpreis: 51.6, versichert: true, versicherung: 7.9, treibstoff_prozent: 0, treibstoff_euro: 6.59, co2: 0, palettenkosten: 6.9, sonstige: 0, preis: 0, gewicht: 1000, volumen: 300, l: 300, b: 200, h: 200, palettiert: true, divisor: 0 },
-            { name: "Freight HP", grundpreis: 39.58, versichert: true, versicherung: 7.9, treibstoff_prozent: 0.1, treibstoff_euro: 0, co2: 3.96, palettenkosten: 3.59, sonstige: 2.97, preis: 0, gewicht: 80, volumen: 80, l: 65, b: 240, h: 0, palettiert: true, divisor: 0 },
-            { name: "Freight XP", grundpreis: 52.81, versichert: true, versicherung: 7.9, treibstoff_prozent: 0.1, treibstoff_euro: 0, co2: 3.91, palettenkosten: 6.59, sonstige: 3.25, preis: 0, gewicht: 150, volumen: 120, l: 80, b: 22, h: 0, palettiert: true, divisor: 0 },
-            { name: "Freight KT", grundpreis: 39.58, versichert: true, versicherung: 7.9, treibstoff_prozent: 0.09, treibstoff_euro: 0, co2: 3.59, palettenkosten: 3.25, sonstige: 0, preis: 0, gewicht: 20, volumen: 140, l: 50, b: 100, h: 0, palettiert: false, divisor: 0 },
-            { name: "GEL HP bis 150 (HP)", grundpreis: 57.79, versichert: true, versicherung: 7.9, treibstoff_prozent: 0, treibstoff_euro: 2.97, co2: 0, palettenkosten: 4, sonstige: 0, preis: 0, gewicht: 150, volumen: 150, l: 85, b: 65, h: 240, palettiert: true, divisor: 6000 },
-            { name: "GEL HP bis 200 (EP)", grundpreis: 71.58, versichert: true, versicherung: 7.9, treibstoff_prozent: 0, treibstoff_euro: 6.59, co2: 0, palettenkosten: 4, sonstige: 0, preis: 0, gewicht: 200, volumen: 200, l: 120, b: 80, h: 240, palettiert: true, divisor: 6000 },
-            { name: "GEL HP 100 unpal.", grundpreis: 73.07, versichert: true, versicherung: 7.9, treibstoff_prozent: 0, treibstoff_euro: 0, co2: 0, palettenkosten: 0, sonstige: 0, preis: 0, gewicht: 101, volumen: 101, l: 80, b: 66, h: 240, palettiert: true, divisor: 6000 }
+            {"name": "DHL Paket", "grundpreis": 5.95, "versichert": false, "versicherung": 0, "treibstoff_prozent": 0, "treibstoff_euro": 0, "co2": 0, "palettenkosten": 0, "sonstige": 0, "preis": 5.95, "gewicht": 31.5, "volumen": 0, "l": 120, "b": 60, "h": 60, "palettiert": false, "divisor": 0},
+            {"name": "Geis bis 15 kg", "grundpreis": 21, "versichert": true, "versicherung": 7.9, "treibstoff_prozent": 0, "treibstoff_euro": 0, "co2": 0, "palettenkosten": 6.9, "sonstige": 0, "preis": 35.8, "gewicht": 15, "volumen": 50, "l": 250, "b": 40, "h": 40, "palettiert": false, "divisor": 0},
+            {"name": "Geis HP", "grundpreis": 33, "versichert": true, "versicherung": 7.9, "treibstoff_prozent": 0, "treibstoff_euro": 2.97, "co2": 0, "palettenkosten": 6.9, "sonstige": 0, "preis": 50.77, "gewicht": 100, "volumen": 85, "l": 65, "b": 22, "h": 0, "palettiert": true, "divisor": 0},
+            {"name": "Geis XP", "grundpreis": 51.6, "versichert": true, "versicherung": 7.9, "treibstoff_prozent": 0, "treibstoff_euro": 6.59, "co2": 0, "palettenkosten": 6.9, "sonstige": 0, "preis": 72.99, "gewicht": 1000, "volumen": 300, "l": 300, "b": 200, "h": 200, "palettiert": true, "divisor": 0},
+            {"name": "GEL HP 100 unpal.", "grundpreis": 73.07, "versichert": true, "versicherung": 7.9, "treibstoff_prozent": 0, "treibstoff_euro": 0, "co2": 0, "palettenkosten": 0, "sonstige": 0, "preis": 80.97, "gewicht": 101, "volumen": 101, "l": 80, "b": 66, "h": 240, "palettiert": true, "divisor": 6000},
+            {"name": "GEL HP NEU", "grundpreis": 35.9, "versichert": true, "versicherung": 10, "treibstoff_prozent": 0, "treibstoff_euro": 4.31, "co2": 0, "palettenkosten": 0, "sonstige": 0, "preis": 50.21, "gewicht": 59, "volumen": 0, "l": 80, "b": 65, "h": 150, "palettiert": false, "divisor": 0},
+            {"name": "GEL HP Pal NEU", "grundpreis": 44.6, "versichert": true, "versicherung": 10, "treibstoff_prozent": 0, "treibstoff_euro": 5.35, "co2": 0, "palettenkosten": 3.8, "sonstige": 0, "preis": 63.75, "gewicht": 150, "volumen": 0, "l": 80, "b": 60, "h": 250, "palettiert": false, "divisor": 5000},
+            {"name": "GEL FP NEU", "grundpreis": 44.6, "versichert": true, "versicherung": 10, "treibstoff_prozent": 0, "treibstoff_euro": 5.35, "co2": 0, "palettenkosten": 0, "sonstige": 0, "preis": 59.95, "gewicht": 150, "volumen": 0, "l": 80, "b": 60, "h": 250, "palettiert": false, "divisor": 5000},
+            {"name": "GEL FP SIde by Side", "grundpreis": 63.8, "versichert": true, "versicherung": 10, "treibstoff_prozent": 0, "treibstoff_euro": 7.66, "co2": 0, "palettenkosten": 0, "sonstige": 0, "preis": 81.46, "gewicht": 150, "volumen": 0, "l": 80, "b": 60, "h": 250, "palettiert": false, "divisor": 5000},
+            {"name": "GEL Karton", "grundpreis": 30, "versichert": true, "versicherung": 10, "treibstoff_prozent": 0, "treibstoff_euro": 3, "co2": 0, "palettenkosten": 0, "sonstige": 0, "preis": 43, "gewicht": 30, "volumen": 0, "l": 80, "b": 60, "h": 250, "palettiert": false, "divisor": 5000}
         ];
 
         const maerkte = JSON.parse(localStorage.getItem('maerkte')) || [
@@ -2140,11 +1509,15 @@
             '888': { satz: 0.12, grenze: 990, over: 0.02 }
         };
 
-        // Versandtarife laden - wenn keine in localStorage, dann Standard verwenden
+        // Versandtarife laden und vorhandene alte Tarifstände einmalig migrieren.
         let versand = JSON.parse(localStorage.getItem('versand'));
-        if (!versand || versand.length === 0) {
-            versand = defaultVersand;
+        const gespeicherteVersandVersion = localStorage.getItem('versandDatenVersion');
+        if (!Array.isArray(versand) || versand.length === 0 || gespeicherteVersandVersion !== VERSAND_DATEN_VERSION) {
+            versand = defaultVersand.map(t => ({ ...t }));
+            selectedVersandTarif = 'auto';
             localStorage.setItem('versand', JSON.stringify(versand));
+            localStorage.setItem('versandDatenVersion', VERSAND_DATEN_VERSION);
+            localStorage.setItem('selectedVersandTarif', selectedVersandTarif);
         }
 
         function save() {
@@ -2576,6 +1949,9 @@
 
         function resetVersand() {
             localStorage.removeItem('versand');
+            localStorage.setItem('versandDatenVersion', VERSAND_DATEN_VERSION);
+            selectedVersandTarif = 'auto';
+            localStorage.setItem('selectedVersandTarif', selectedVersandTarif);
             location.reload();
         }
 
@@ -3109,9 +2485,5 @@
             });
         }
     </script>
-
-
-
 </body>
-
 </html>
